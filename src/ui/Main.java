@@ -3,19 +3,24 @@ package ui;
 import java.util.Scanner;
 
 class Main {
-    private static Scanner input = new Scanner(System.in);
+    private Scanner input;
 
-    public static void main(String[] args) {
-        int option = menu();
-
-        while (option != 12) {
-            option = menu();
-        }
-        System.out.println("\nHAVE A GREAT DAY!!");
-        input.close();
+    public Main() {
+        input = new Scanner(System.in);
     }
 
-    public static int menu() {
+    public static void main(String[] args) {
+        Main view = new Main();
+        int option = view.menu();
+
+        while (option != 12) {
+            option = view.menu();
+        }
+        System.out.println("\nHAVE A GREAT DAY!!");
+        view.input.close();
+    }
+
+    public int menu() {
         int option = 0;
         do {
             System.out.println("----Welcome----"
@@ -48,7 +53,7 @@ class Main {
         return option;
     }
 
-    public static int validateIntegerInput() {
+    public int validateIntegerInput() {
         int option = 0;
         if (input.hasNextInt()) {
             option = input.nextInt();
