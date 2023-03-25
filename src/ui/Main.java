@@ -1,12 +1,16 @@
 package ui;
 
 import java.util.Scanner;
+import model.KnowledgeSystem;
+import java.util.Calendar;
 
 class Main {
     private Scanner input;
+    KnowledgeSystem driver;
 
     public Main() {
         input = new Scanner(System.in);
+        driver = new KnowledgeSystem();
     }
 
     public static void main(String[] args) {
@@ -14,10 +18,45 @@ class Main {
         int option = view.menu();
 
         while (option != 12) {
+            view.executeOption(option);
             option = view.menu();
         }
         System.out.println("\nHAVE A GREAT DAY!!");
         view.input.close();
+    }
+
+    /**
+     * This option is the one encharged of running the option inserted by the user
+     * in the Menu
+     * 
+     * @param option -> It will be a number between 1 and 6 representing what the
+     *               user want's to do with the software.
+     * @return The program return nothing since it will only execute an option.
+     */
+    public void executeOption(int option) {
+        switch (option) {
+
+            case 1:
+                createProject();
+                break;
+
+            case 2:
+
+                break;
+
+            case 3:
+
+                break;
+
+            case 4:
+                break;
+
+            case 5:
+                break;
+            default:
+                System.out.println("Option not recognized.");
+        }
+
     }
 
     public int menu() {
@@ -63,6 +102,15 @@ class Main {
             System.out.println("Insert a numeric value.");
         }
         return option;
+    }
+
+    public void createProject() {
+        System.out.println("\tCREATING A PROJECT");
+        System.out.print("Project's name: ");
+        String projectName = input.nextLine();
+        System.out.print("Client's name: ");
+        String clientName = input.nextLine();
+        System.out.print("When is the project supposed to start: ");
     }
 
 }
