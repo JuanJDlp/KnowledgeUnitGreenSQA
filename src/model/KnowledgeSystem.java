@@ -7,6 +7,12 @@ import java.util.Calendar;
 public class KnowledgeSystem {
     private final int SIZEPROJECTS = 10;
     private Project[] projects = new Project[SIZEPROJECTS];
+    private Employee[] employee = {
+            new Employee("Vanessa", null, "COLLABORATOR"),
+            new Employee("Rony", null, "COLLABORATOR"),
+            new Employee("Mariana", null, "COLLABORATOR"),
+            new Employee("Natalia", null, "COLLABORATOR")
+    };
 
     public KnowledgeSystem() {
         /* Empty constructor */}
@@ -21,7 +27,7 @@ public class KnowledgeSystem {
 
     // Adds a manager to a project based on its position.
     public void addManager(String name, String phone) {
-        projects[getFirtsValidPosition() - 1].getmanagers().add(new Employee(name, phone));
+        projects[getFirtsValidPosition() - 1].getmanagers().add(new Employee(name, phone, "MANAGER"));
     }
 
     public void addProject(String projectName, String clientName, String startPlannedDateString,
