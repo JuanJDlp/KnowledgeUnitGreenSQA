@@ -157,13 +157,16 @@ class Main {
     }
 
     public void endPhase() {
+        int projectNumber = -1;
         System.out.println("\t Which from wich project do you want to end their phase? : \n");
 
-        for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
-            System.out.println((i + 1) + ": " + driver.getprojects()[i].getProjectName());
-        }
-
-        int projectNumber = validateIntegerInput();
+        do {
+            for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
+                System.out.println((i + 1) + ": " + driver.getprojects()[i].getProjectName());
+            }
+            projectNumber = validateIntegerInput();
+        } while (projectNumber <= 0
+                || projectNumber > driver.getFirtsValidPosition());
 
         System.out.println("\nCURRENT STAGE -> " +
                 driver.getprojects()[projectNumber - 1].getPhase()[driver.getprojects()[projectNumber - 1]
@@ -174,6 +177,7 @@ class Main {
         String confirmation = input.nextLine();
         if (confirmation.equalsIgnoreCase("y") || confirmation.equalsIgnoreCase("")) {
             driver.endPhase(projectNumber);
+            System.out.println("Phase endending complete");
         } else {
             System.out.println("\nCancelling task..\n");
         }
