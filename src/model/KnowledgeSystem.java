@@ -19,9 +19,15 @@ public class KnowledgeSystem {
         return SIZEPROJECTS;
     }
 
+    // Adds a manager to a project based on its position.
+    public void addManager(String name, String phone) {
+        projects[getFirtsValidPosition() - 1].getmanagers().add(new Employee(name, phone));
+    }
+
     public void addProject(String projectName, String clientName, String startPlannedDateString,
             String endingPlannedDateString,
             double projectBudge) {
+
         Calendar startPlannedDate = stringToCalendar(startPlannedDateString);
         Calendar endingPlannedDate = stringToCalendar(endingPlannedDateString);
         projects[getFirtsValidPosition()] = new Project(projectName, clientName, startPlannedDate, endingPlannedDate,

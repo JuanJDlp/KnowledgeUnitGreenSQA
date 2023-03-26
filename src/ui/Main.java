@@ -1,6 +1,7 @@
 package ui;
 
 import java.util.Scanner;
+
 import model.KnowledgeSystem;
 
 class Main {
@@ -105,19 +106,41 @@ class Main {
 
     public void createProject() {
         System.out.println("\n\n\n\n\n\n\n\n\n\tCREATING A PROJECT\n");
+
         System.out.print("Project's name: ");
         input.nextLine();
+
         String projectName = input.nextLine(); // This is not storing all the name.
         System.out.print("Client's name: ");
+
         String clientName = input.nextLine();
         System.out.print("When is the project supposed to start(dd-mm-yyyy): ");
         String startPlannedDateString = input.nextLine();
+
         System.out.print("When is the project supposed to end(dd-mm-yyyy): ");
         String endingPlannedDateString = input.nextLine();
+
         System.out.print("Budget for the project: ");
         double budget = input.nextDouble();
-        driver.addProject(projectName, clientName, startPlannedDateString, endingPlannedDateString, budget);
+
+        driver.addProject(projectName, clientName, startPlannedDateString, endingPlannedDateString,
+                budget);
+
+        System.out.print("How many managers are you going to introduce?: ");
+        int amountOfManagers = validateIntegerInput();
+        input.nextLine();
+
+        for (int i = 0; i < amountOfManagers; i++) {
+            System.out.println("Name of the manager: ");
+            String managerName = input.nextLine();
+            System.out.println("Manager's phone: ");
+            String managersPhone = input.nextLine();
+            driver.addManager(managerName, managersPhone);
+            System.out.println("\n");
+        }
+
         System.out.println("\n\tThe project was crated succesfully \n");
+
         showProjects();
         System.out.println("\n");
     }
