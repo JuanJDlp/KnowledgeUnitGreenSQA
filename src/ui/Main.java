@@ -111,7 +111,7 @@ class Main {
         System.out.println("\n\n\tCREATING A PROJECT\n");
 
         System.out.print("Project's name: ");
-        input.nextLine();
+        input.nextLine(); // Grab the enter
         String projectName = input.nextLine();
 
         System.out.print("Client's name: ");
@@ -139,7 +139,7 @@ class Main {
 
         System.out.print("How many managers are you going to introduce?: ");
         int amountOfManagers = validateIntegerInput();
-        input.nextLine();
+        input.nextLine(); // Grab the enter
 
         for (int i = 0; i < amountOfManagers; i++) {
             System.out.println("Name of the manager: ");
@@ -161,6 +161,7 @@ class Main {
         System.out.println("\t Which from wich project do you want to end their phase? : \n");
 
         do {
+            // Printing all the projects name's
             for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
                 System.out.println((i + 1) + ": " + driver.getprojects()[i].getProjectName());
             }
@@ -173,7 +174,7 @@ class Main {
                         .getCurrentPhase()]);
 
         System.out.println("\nAre you sure you want to end this phase? Y/n ");
-        input.nextLine();
+        input.nextLine();// Grab the enter
         String confirmation = input.nextLine();
         if (confirmation.equalsIgnoreCase("y") || confirmation.equalsIgnoreCase("")) {
             driver.endPhase(projectNumber);

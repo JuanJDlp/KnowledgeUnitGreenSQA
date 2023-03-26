@@ -33,32 +33,38 @@ public class KnowledgeSystem {
     public void addProject(String projectName, String clientName, double projectBudge) {
 
         Calendar startPlannedDate = Calendar.getInstance();
+        int newProjectPosition = getFirtsValidPosition();
 
-        projects[getFirtsValidPosition()] = new Project(projectName, clientName, startPlannedDate, projectBudge);
+        projects[newProjectPosition] = new Project(projectName, clientName, startPlannedDate, projectBudge);
         // Set the first phase real starting date and planned date.
-        projects[getFirtsValidPosition() - 1].getPhase()[0].setRealStartingDate(startPlannedDate);
-        projects[getFirtsValidPosition() - 1].getPhase()[0].setStartPlannedDate(startPlannedDate);
+        projects[newProjectPosition - 1].getPhase()[0].setRealStartingDate(startPlannedDate);
+        projects[newProjectPosition - 1].getPhase()[0].setStartPlannedDate(startPlannedDate);
     }
 
-    public void initProjectPhases(Calendar actualDate, int position, int amountMonthsBetweenProjects) {
+    public void initProjectPhases(Calendar actualDate, int phaseIndex, int amountMonthsBetweenProjects) {
+
         actualDate.add(Calendar.MONTH, amountMonthsBetweenProjects);
-        getprojects()[getFirtsValidPosition() - 1].getPhase()[position].setendingPlannedDate(actualDate);
+        Project currenProject = getprojects()[getFirtsValidPosition() - 1];
+
+        currenProject.getPhase()[phaseIndex].setendingPlannedDate(actualDate);
 
         Calendar nextStartDate = (Calendar) actualDate.clone();
 
-        getprojects()[getFirtsValidPosition() - 1].getPhase()[position + 1]
+        currenProject.getPhase()[phaseIndex + 1]
                 .setStartPlannedDate(nextStartDate);
     }
 
     public void endPhase(int projectNumber) {
+
         Project currenProject = projects[projectNumber - 1];
+        int phaseIndex = currenProject.getCurrentPhase();
 
-        currenProject.getPhase()[currenProject.getCurrentPhase()].setActive(false);
-        currenProject.getPhase()[currenProject.getCurrentPhase()].setRealEndingDate(Calendar.getInstance());
+        currenProject.getPhase()[phaseIndex].setActive(false);
+        currenProject.getPhase()[phaseIndex].setRealEndingDate(Calendar.getInstance());
 
-        currenProject.getPhase()[currenProject.getCurrentPhase() + 1].setRealStartingDate(Calendar.getInstance());
-        currenProject.getPhase()[currenProject.getCurrentPhase() + 1].setActive(true);
-        currenProject.setCurrentPhase(currenProject.getCurrentPhase() + 1);
+        currenProject.getPhase()[phaseIndex + 1].setRealStartingDate(Calendar.getInstance());
+        currenProject.getPhase()[phaseIndex + 1].setActive(true);
+        currenProject.setCurrentPhase(phaseIndex + 1);
 
     }
 
