@@ -2,8 +2,10 @@ package model;
 
 import java.util.Calendar;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 
 public class Project {
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     private String projectName;
     private String clientName;
     private Calendar startPlannedDate;
@@ -19,5 +21,14 @@ public class Project {
         this.startPlannedDate = startPlannedDate;
         this.endingPlannedDate = endingPlannedDate;
         this.projectBudget = projectBudget;
+    }
+
+    @Override
+    public String toString() {
+        return "Project's name: " + this.projectName +
+                "\nClient's name: " + this.clientName +
+                "\nStarting planned date: " + sdf.format(this.startPlannedDate.getTime()) +
+                "\nEnding planned date: " + sdf.format(this.endingPlannedDate.getTime()) +
+                "\nProject budget: " + this.projectBudget + " dolars";
     }
 }

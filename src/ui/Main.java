@@ -2,7 +2,6 @@ package ui;
 
 import java.util.Scanner;
 import model.KnowledgeSystem;
-import java.util.Calendar;
 
 class Main {
     private Scanner input;
@@ -83,7 +82,7 @@ class Main {
                     +
                     "\n11. Informar al usuario las situaciones y lecciones aprendidas de las cápsulas aprobadas y publicadas, de acuerdo a una cadena de búsqueda dada por él mismo.  Esta cadena de búsqueda deberá ser encontrada en los hashtag.  "
                     + "\n\n12. SALIR DEL PROGRAMA");
-            System.out.print("\n>>");
+            System.out.print("\n>> ");
             option = validateIntegerInput();
             if (option < 1 || option > 12) {
                 System.out.println("Please select a valid option \n");
@@ -105,12 +104,28 @@ class Main {
     }
 
     public void createProject() {
-        System.out.println("\tCREATING A PROJECT");
+        System.out.println("\n\n\n\n\n\n\n\n\n\tCREATING A PROJECT\n");
         System.out.print("Project's name: ");
-        String projectName = input.nextLine();
+        input.nextLine();
+        String projectName = input.nextLine(); // This is not storing all the name.
         System.out.print("Client's name: ");
         String clientName = input.nextLine();
-        System.out.print("When is the project supposed to start: ");
+        System.out.print("When is the project supposed to start(dd-mm-yyyy): ");
+        String startPlannedDateString = input.nextLine();
+        System.out.print("When is the project supposed to end(dd-mm-yyyy): ");
+        String endingPlannedDateString = input.nextLine();
+        System.out.print("Budget for the project: ");
+        double budget = input.nextDouble();
+        driver.addProject(projectName, clientName, startPlannedDateString, endingPlannedDateString, budget);
+        System.out.println("\n\tThe project was crated succesfully \n");
+        showProjects();
+        System.out.println("\n");
+    }
+
+    public void showProjects() {
+        for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
+            System.out.println(driver.getprojects()[i]);
+        }
     }
 
 }
