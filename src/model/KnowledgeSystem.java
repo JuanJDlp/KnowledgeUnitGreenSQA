@@ -30,14 +30,14 @@ public class KnowledgeSystem {
         projects[getFirtsValidPosition() - 1].getmanagers().add(new Employee(name, phone, "MANAGER"));
     }
 
-    public void addProject(String projectName, String clientName, String startPlannedDateString,
-            String endingPlannedDateString,
-            double projectBudge) {
+    public void addProject(String projectName, String clientName, double projectBudge) {
 
-        Calendar startPlannedDate = stringToCalendar(startPlannedDateString);
-        Calendar endingPlannedDate = stringToCalendar(endingPlannedDateString);
-        projects[getFirtsValidPosition()] = new Project(projectName, clientName, startPlannedDate, endingPlannedDate,
-                projectBudge);
+        Calendar startPlannedDate = Calendar.getInstance();
+
+        projects[getFirtsValidPosition()] = new Project(projectName, clientName, startPlannedDate, projectBudge);
+        // Set the first phase real starting date and planned date.
+        projects[getFirtsValidPosition() - 1].getPhase()[0].setRealStartingDate(startPlannedDate);
+        projects[getFirtsValidPosition() - 1].getPhase()[0].setStartPlannedDate(startPlannedDate);
     }
 
     public Calendar stringToCalendar(String string) {
@@ -61,5 +61,15 @@ public class KnowledgeSystem {
             }
         }
         return pos;
+    }
+
+    public void initProjectPhases(Calendar actualDate, int position, int amountMonthsBetweenProjects) {
+        actualDate.add(Calendar.MONTH, amountMonthsBetweenProjects);
+        getprojects()[getFirtsValidPosition() - 1].getPhase()[position].setendingPlannedDate(actualDate);
+
+        Calendar nextStartDate = (Calendar) actualDate.clone();
+
+        getprojects()[getFirtsValidPosition() - 1].getPhase()[position + 1]
+                .setStartPlannedDate(nextStartDate);
     }
 }

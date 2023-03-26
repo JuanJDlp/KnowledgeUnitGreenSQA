@@ -1,5 +1,6 @@
 package ui;
 
+import java.util.Calendar;
 import java.util.Scanner;
 
 import model.KnowledgeSystem;
@@ -17,7 +18,7 @@ class Main {
         Main view = new Main();
         int option = view.menu();
 
-        while (option != 12) {
+        while (option != 11) {
             view.executeOption(option);
             option = view.menu();
         }
@@ -66,29 +67,27 @@ class Main {
 
                     + "\n---Capulas y proyectos---\n" +
 
-                    "\n1. Crear un proyecto " +
-                    "\n2. Culminar la etapa de un proyecto" +
-                    "\n3. Regitrar capsula " +
-                    "\n4. Aprobar capsula " +
-                    "\n5. Publicar capsula\n " +
+                    "\n1. Create a project " +
+                    "\n2. End a project phase" +
+                    "\n3. Register a capsule " +
+                    "\n4. Aprove a capsule " +
+                    "\n5. Pubolish capsule\n " +
 
-                    "\n---Informacion---\n" +
+                    "\n---Information---\n" +
 
-                    "\n7. Informar al usuario cuantas de las cápsulas registradas hay por cada tipo de cápsula (técnico, gestión, dominio y experiencias) "
+                    "\n6. List capsules of a type " +
+                    "\n7. Lessons per stage " +
+                    "\n8. Project with the most amount of capsules " +
+                    "\n9. Capsules created by a colaborator " +
+                    "\n10. Search lessons  "
                     +
-                    "\n8. Informar al usuario un listado de lecciones aprendidas correspondientes a las cápsulas registradas en los proyectos para una etapa en particular "
-                    +
-                    "\n9. Informar al usuario el nombre del proyecto con más cápsulas registradas " +
-                    "\n10. Informar al usuario si un colaborador (por el nombre) ha registrado cápsulas en algún proyecto. "
-                    +
-                    "\n11. Informar al usuario las situaciones y lecciones aprendidas de las cápsulas aprobadas y publicadas, de acuerdo a una cadena de búsqueda dada por él mismo.  Esta cadena de búsqueda deberá ser encontrada en los hashtag.  "
-                    + "\n\n12. SALIR DEL PROGRAMA");
+                    "\n\n11. SALIR DEL PROGRAMA");
             System.out.print("\n>> ");
             option = validateIntegerInput();
-            if (option < 1 || option > 12) {
+            if (option < 1 || option > 11) {
                 System.out.println("Please select a valid option \n");
             }
-        } while (option < 1 || option > 12);
+        } while (option < 1 || option > 11);
         return option;
     }
 
@@ -105,26 +104,34 @@ class Main {
     }
 
     public void createProject() {
-        System.out.println("\n\n\n\n\n\n\n\n\n\tCREATING A PROJECT\n");
+        System.out.println("\n\n\tCREATING A PROJECT\n");
 
         System.out.print("Project's name: ");
         input.nextLine();
+        String projectName = input.nextLine();
 
-        String projectName = input.nextLine(); // This is not storing all the name.
         System.out.print("Client's name: ");
-
         String clientName = input.nextLine();
-        System.out.print("When is the project supposed to start(dd-mm-yyyy): ");
-        String startPlannedDateString = input.nextLine();
-
-        System.out.print("When is the project supposed to end(dd-mm-yyyy): ");
-        String endingPlannedDateString = input.nextLine();
 
         System.out.print("Budget for the project: ");
         double budget = input.nextDouble();
 
-        driver.addProject(projectName, clientName, startPlannedDateString, endingPlannedDateString,
-                budget);
+        driver.addProject(projectName, clientName, budget);
+
+        System.out.println("\nInser how long in MONTHS each phase will take. \n");
+
+        Calendar actualDate = Calendar.getInstance();
+
+        for (int i = 0; i < 5; i++) {
+            System.out.print("Duration in months of '"
+                    + driver.getprojects()[driver.getFirtsValidPosition() - 1].getPhase()[i].getPhaseType() + "' : ");
+            int months = input.nextInt();
+
+            driver.initProjectPhases(actualDate, i, months);
+        }
+
+        driver.getprojects()[driver.getFirtsValidPosition() - 1].getPhase()[5].setendingPlannedDate(actualDate);
+        driver.getprojects()[driver.getFirtsValidPosition() - 1].setEndingDate(actualDate);
 
         System.out.print("How many managers are you going to introduce?: ");
         int amountOfManagers = validateIntegerInput();
