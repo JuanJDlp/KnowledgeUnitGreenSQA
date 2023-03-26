@@ -42,7 +42,11 @@ class Main {
                 break;
 
             case 2:
-
+                if (driver.getFirtsValidPosition() >= 1) {
+                    endPhase();
+                } else {
+                    System.out.println("\nThere is no current projects.\n");
+                }
                 break;
 
             case 3:
@@ -65,7 +69,7 @@ class Main {
         do {
             System.out.println("----Welcome----"
 
-                    + "\n---Capulas y proyectos---\n" +
+                    + "\n---Capsules and projects---\n" +
 
                     "\n1. Create a project " +
                     "\n2. End a project phase" +
@@ -118,7 +122,7 @@ class Main {
 
         driver.addProject(projectName, clientName, budget);
 
-        System.out.println("\nInser how long in MONTHS each phase will take. \n");
+        System.out.println("\nInsert how long in MONTHS each phase will take. \n");
 
         Calendar actualDate = Calendar.getInstance();
 
@@ -150,6 +154,30 @@ class Main {
 
         showProjects();
         System.out.println("\n");
+    }
+
+    public void endPhase() {
+        System.out.println("\t Which from wich project do you want to end their phase? : \n");
+
+        for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
+            System.out.println((i + 1) + ": " + driver.getprojects()[i].getProjectName());
+        }
+
+        int projectNumber = validateIntegerInput();
+
+        System.out.println("\nCURRENT STAGE -> " +
+                driver.getprojects()[projectNumber - 1].getPhase()[driver.getprojects()[projectNumber - 1]
+                        .getCurrentPhase()]);
+
+        System.out.println("\nAre you sure you want to end this phase? Y/n ");
+        input.nextLine();
+        String confirmation = input.nextLine();
+        if (confirmation.equalsIgnoreCase("y") || confirmation.equalsIgnoreCase("")) {
+            driver.endPhase(projectNumber);
+        } else {
+            System.out.println("\nCancelling task..\n");
+        }
+
     }
 
     public void showProjects() {

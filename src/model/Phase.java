@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.text.SimpleDateFormat;
 
 public class Phase {
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
     private Calendar startPlannedDate;
     private Calendar endingPlannedDate;
     private Calendar realStartingDate;
@@ -23,7 +23,8 @@ public class Phase {
     }
 
     public void setendingPlannedDate(Calendar date) {
-        this.endingPlannedDate = date;
+        Calendar dateClone = (Calendar) date.clone();
+        this.endingPlannedDate = dateClone;
     }
 
     public void setRealStartingDate(Calendar realStartingDate) {
@@ -52,7 +53,7 @@ public class Phase {
 
     @Override
     public String toString() {
-        return "Phase Type: " + this.phaseType +
+        return "Phase: " + this.phaseType +
                 "\n Active: " + this.active +
                 "\n Start planned date: " + sdf.format(this.startPlannedDate.getTime()) +
                 "\n Ending Planned date: " + sdf.format(this.endingPlannedDate.getTime());

@@ -5,12 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Project {
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
     private String projectName;
     private String clientName;
     private Calendar startDate;
     private Calendar endingDate;
     private double projectBudget;
+    private int currentPhase = 0;
     private ArrayList<Employee> managers = new ArrayList<Employee>();
     private Phase[] phase = {
             new Phase("START", true),
@@ -28,8 +29,20 @@ public class Project {
         this.projectBudget = projectBudget;
     }
 
+    public int getCurrentPhase() {
+        return currentPhase;
+    }
+
+    public void setCurrentPhase(int currentPhase) {
+        this.currentPhase = currentPhase;
+    }
+
     public Phase[] getPhase() {
         return phase;
+    }
+
+    public String getProjectName() {
+        return projectName;
     }
 
     public ArrayList<Employee> getmanagers() {

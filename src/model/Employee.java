@@ -13,6 +13,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Name: " + this.name + " Numero de telefono: " + this.phone + " Role: " + this.role;
+        return "Name: " + this.name + "\n Numero de telefono: " + this.phone + "\n Role: " + this.role;
     }
 }

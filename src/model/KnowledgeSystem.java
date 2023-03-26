@@ -40,9 +40,31 @@ public class KnowledgeSystem {
         projects[getFirtsValidPosition() - 1].getPhase()[0].setStartPlannedDate(startPlannedDate);
     }
 
+    public void initProjectPhases(Calendar actualDate, int position, int amountMonthsBetweenProjects) {
+        actualDate.add(Calendar.MONTH, amountMonthsBetweenProjects);
+        getprojects()[getFirtsValidPosition() - 1].getPhase()[position].setendingPlannedDate(actualDate);
+
+        Calendar nextStartDate = (Calendar) actualDate.clone();
+
+        getprojects()[getFirtsValidPosition() - 1].getPhase()[position + 1]
+                .setStartPlannedDate(nextStartDate);
+    }
+
+    public void endPhase(int projectNumber) {
+        Project currenProject = projects[projectNumber - 1];
+
+        currenProject.getPhase()[currenProject.getCurrentPhase()].setActive(false);
+        currenProject.getPhase()[currenProject.getCurrentPhase()].setRealEndingDate(Calendar.getInstance());
+
+        currenProject.getPhase()[currenProject.getCurrentPhase() + 1].setRealStartingDate(Calendar.getInstance());
+        currenProject.getPhase()[currenProject.getCurrentPhase() + 1].setActive(true);
+        currenProject.setCurrentPhase(currenProject.getCurrentPhase() + 1);
+
+    }
+
     public Calendar stringToCalendar(String string) {
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
         try {
             calendar.setTime(sdf.parse(string));
         } catch (ParseException e) {
@@ -61,15 +83,5 @@ public class KnowledgeSystem {
             }
         }
         return pos;
-    }
-
-    public void initProjectPhases(Calendar actualDate, int position, int amountMonthsBetweenProjects) {
-        actualDate.add(Calendar.MONTH, amountMonthsBetweenProjects);
-        getprojects()[getFirtsValidPosition() - 1].getPhase()[position].setendingPlannedDate(actualDate);
-
-        Calendar nextStartDate = (Calendar) actualDate.clone();
-
-        getprojects()[getFirtsValidPosition() - 1].getPhase()[position + 1]
-                .setStartPlannedDate(nextStartDate);
     }
 }
