@@ -58,22 +58,8 @@ public class KnowledgeSystem {
     }
 
     public void endPhase(int projectNumber) {
-
-        Calendar actualTime = Calendar.getInstance();
-
         Project currentProject = projects[projectNumber];
-        int phaseIndex = currentProject.getCurrentPhase();
-
-        if (phaseIndex != -5 && phaseIndex != 5) {
-            currentProject.getPhase()[phaseIndex].setActive(false);
-            currentProject.getPhase()[phaseIndex].setRealEndingDate(actualTime);
-            currentProject.getPhase()[phaseIndex + 1].setRealStartingDate(actualTime);
-            currentProject.getPhase()[phaseIndex + 1].setActive(true);
-        } else if (phaseIndex == 5) {
-            currentProject.getPhase()[phaseIndex].setActive(false);
-            currentProject.getPhase()[phaseIndex].setRealEndingDate(actualTime);
-        }
-
+        currentProject.endPhase();
     }
 
     public Calendar stringToCalendar(String string) {

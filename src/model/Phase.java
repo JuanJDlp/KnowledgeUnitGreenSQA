@@ -18,6 +18,7 @@ public class Phase {
         this.active = active;
     }
 
+    // Getters and setters
     public void setStartPlannedDate(Calendar date) {
         this.startPlannedDate = date;
     }
@@ -55,6 +56,7 @@ public class Phase {
         return active;
     }
 
+    // Methods-----
     @Override
     public String toString() {
         return "Phase: " + this.phaseType +

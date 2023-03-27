@@ -187,7 +187,7 @@ class Main {
         if (projectNumber >= 0) {
             if (driver.getprojects()[projectNumber - 1].getCurrentPhase() == -5) {
                 System.out.println(
-                        "\nYou can't end the phase of this project. This project has endend");
+                        "\nYou can't end the phase of this project. This project has ended");
                 driver.endPhase(projectNumber - 1);
                 System.out.println(driver.getprojects()[projectNumber - 1]
                         .getPhase()[driver.getprojects()[projectNumber - 1]

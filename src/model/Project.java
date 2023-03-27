@@ -77,6 +77,24 @@ public class Project {
 
     }
 
+    public void endPhase() {
+
+        Calendar actualTime = Calendar.getInstance();
+
+        int phaseIndex = getCurrentPhase();
+
+        if (phaseIndex != -5 && phaseIndex != 5) {
+            getPhase()[phaseIndex].setActive(false);
+            getPhase()[phaseIndex].setRealEndingDate(actualTime);
+            getPhase()[phaseIndex + 1].setRealStartingDate(actualTime);
+            getPhase()[phaseIndex + 1].setActive(true);
+        } else if (phaseIndex == 5) {
+            getPhase()[phaseIndex].setActive(false);
+            getPhase()[phaseIndex].setRealEndingDate(actualTime);
+        }
+
+    }
+
     public int getCurrentPhase() {
         boolean found = false;
         int position = -5;
