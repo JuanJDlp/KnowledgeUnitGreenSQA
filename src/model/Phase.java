@@ -59,8 +59,8 @@ public class Phase {
     public String toString() {
         return "Phase: " + this.phaseType +
                 "\n Active: " + this.active +
-                "\n Start planned date: " + sdf.format(this.startPlannedDate.getTime()) +
                 "\n The project started: " + sdf.format(this.realStartingDate.getTime()) + "\n" +
+                "\n Start planned date: " + sdf.format(this.startPlannedDate.getTime()) +
                 "\n Ending Planned date: " + sdf.format(this.endingPlannedDate.getTime());
     }
 
