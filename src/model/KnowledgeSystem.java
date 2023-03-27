@@ -27,7 +27,7 @@ public class KnowledgeSystem {
 
     // Adds a manager to a project based on its position.
     public void addManager(String name, String phone) {
-        projects[getFirtsValidPosition() - 1].getmanagers().add(new Employee(name, phone, "MANAGER"));
+        projects[getFirtsValidPosition() - 1].addManager(name, phone);
     }
 
     public void addProject(String projectName, String clientName, double projectBudge) {
@@ -53,18 +53,8 @@ public class KnowledgeSystem {
     }
 
     public void initProjectPhases(Calendar actualDate, int phaseIndex, int amountMonthsBetweenProjects) {
-
-        actualDate.add(Calendar.MONTH, amountMonthsBetweenProjects);
         Project currenProject = getprojects()[getFirtsValidPosition() - 1];
-
-        currenProject.getPhase()[phaseIndex].setendingPlannedDate(actualDate);
-
-        Calendar nextStartDate = (Calendar) actualDate.clone();
-        if (phaseIndex != 5) {
-            currenProject.getPhase()[phaseIndex + 1]
-                    .setStartPlannedDate(nextStartDate);
-        }
-
+        currenProject.initProjectPhases(actualDate, phaseIndex, amountMonthsBetweenProjects);
     }
 
     public void endPhase(int projectNumber) {

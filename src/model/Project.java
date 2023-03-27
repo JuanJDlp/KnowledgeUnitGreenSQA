@@ -28,6 +28,7 @@ public class Project {
         this.projectBudget = projectBudget;
     }
 
+    // Getters And Setters
     public void setProjectName(String projectName) {
         this.projectName = projectName;
     }
@@ -54,6 +55,26 @@ public class Project {
 
     public Calendar getStartDate() {
         return startDate;
+    }
+
+    // Methods--------------------
+
+    public void addManager(String name, String phone) {
+        managers.add(new Employee(name, phone, "MANAGER"));
+    }
+
+    public void initProjectPhases(Calendar actualDate, int phaseIndex, int amountMonthsBetweenProjects) {
+
+        actualDate.add(Calendar.MONTH, amountMonthsBetweenProjects);
+
+        getPhase()[phaseIndex].setendingPlannedDate(actualDate);
+
+        Calendar nextStartDate = (Calendar) actualDate.clone();
+        if (phaseIndex != 5) {
+            getPhase()[phaseIndex + 1]
+                    .setStartPlannedDate(nextStartDate);
+        }
+
     }
 
     public int getCurrentPhase() {
