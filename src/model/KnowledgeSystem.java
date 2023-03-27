@@ -40,6 +40,18 @@ public class KnowledgeSystem {
         projects[getFirtsValidPosition() - 1].getPhase()[0].setStartPlannedDate(startPlannedDate);
     }
 
+    public int findProject(String name) {
+        boolean found = false;
+        int position = -1;
+        for (int i = 0; i < getFirtsValidPosition() && !found; i++) {
+            if (name.equalsIgnoreCase(projects[i].getProjectName())) {
+                found = true;
+                position = i;
+            }
+        }
+        return position;
+    }
+
     public void initProjectPhases(Calendar actualDate, int phaseIndex, int amountMonthsBetweenProjects) {
 
         actualDate.add(Calendar.MONTH, amountMonthsBetweenProjects);

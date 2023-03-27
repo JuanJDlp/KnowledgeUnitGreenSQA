@@ -51,6 +51,10 @@ public class Phase {
         return phaseType;
     }
 
+    public boolean getActive() {
+        return active;
+    }
+
     @Override
     public String toString() {
         return "Phase: " + this.phaseType +

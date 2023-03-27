@@ -75,7 +75,7 @@ class Main {
                     "\n2. End a project phase" +
                     "\n3. Register a capsule " +
                     "\n4. Aprove a capsule " +
-                    "\n5. Pubolish capsule\n " +
+                    "\n5. Publish capsule\n " +
 
                     "\n---Information---\n" +
 
@@ -113,6 +113,11 @@ class Main {
         System.out.print("Project's name: ");
         input.nextLine(); // Grab the enter
         String projectName = input.nextLine();
+
+        while (driver.findProject(projectName) != -1) {
+            System.out.println("\nProject name alredy exists, please pick another one" + "\n>> ");
+            projectName = input.nextLine();
+        }
 
         System.out.print("Client's name: ");
         String clientName = input.nextLine();
@@ -164,7 +169,14 @@ class Main {
             System.out.println("\n");
             // Printing all the projects name's
             for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
-                System.out.println((i + 1) + ": " + driver.getprojects()[i].getProjectName());
+                if (driver.getprojects()[i].getCurrentPhase() != 6) {
+                    System.out.println((i + 1) + ": " + driver.getprojects()[i].getProjectName()
+                            + " | " + driver.getprojects()[i].getPhase()[driver.getprojects()[i]
+                                    .getCurrentPhase()].getPhaseType());
+                } else {
+                    System.out.println((i + 1) + ": " + driver.getprojects()[i].getProjectName()
+                            + " | " + "THE PROJECT HAS ENDEND");
+                }
             }
             System.out.println("\n-1 : to exit the menu");
             // Picking a project
