@@ -56,6 +56,7 @@ public class Phase {
         return "Phase: " + this.phaseType +
                 "\n Active: " + this.active +
                 "\n Start planned date: " + sdf.format(this.startPlannedDate.getTime()) +
+                "\n The project started: " + sdf.format(this.realStartingDate.getTime()) + "\n" +
                 "\n Ending Planned date: " + sdf.format(this.endingPlannedDate.getTime());
     }
 
@@ -63,9 +64,9 @@ public class Phase {
         return "Phase: " + this.phaseType +
                 "\n Active: " + this.active +
                 "\n Start planned date: " + sdf.format(this.startPlannedDate.getTime()) +
-                "\n Ending Planned date: " + sdf.format(this.endingPlannedDate.getTime()) +
-                "\nStarting date: " + sdf.format(this.realStartingDate.getTime()) +
-                "\nEnding date: " + sdf.format(this.realEndingDate.getTime());
+                "\n Ending Planned date: " + sdf.format(this.endingPlannedDate.getTime()) + "\n" +
+                "\n Starting date: " + sdf.format(this.realStartingDate.getTime()) +
+                "\n Ending date: " + sdf.format(this.realEndingDate.getTime());
     }
 
 }

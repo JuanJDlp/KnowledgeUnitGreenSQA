@@ -126,7 +126,7 @@ class Main {
 
         Calendar actualDate = Calendar.getInstance();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             System.out.print("Duration in months of '"
                     + driver.getprojects()[driver.getFirtsValidPosition() - 1].getPhase()[i].getPhaseType() + "' : ");
             int months = input.nextInt();
@@ -137,7 +137,7 @@ class Main {
         driver.getprojects()[driver.getFirtsValidPosition() - 1].getPhase()[5].setendingPlannedDate(actualDate);
         driver.getprojects()[driver.getFirtsValidPosition() - 1].setEndingDate(actualDate);
 
-        System.out.print("How many managers are you going to introduce?: ");
+        System.out.print("\nHow many managers are you going to introduce?: ");
         int amountOfManagers = validateIntegerInput();
         input.nextLine(); // Grab the enter
 
@@ -158,7 +158,7 @@ class Main {
 
     public void endPhase() {
         int projectNumber = -1;
-        System.out.println("\t Which from wich project do you want to end their phase? : \n");
+        System.out.println("\t Wich project do you want to end their phase? : \n");
 
         do {
             // Printing all the projects name's
@@ -170,12 +170,12 @@ class Main {
         } while (projectNumber <= 0
                 || projectNumber > driver.getFirtsValidPosition());
 
-        if (driver.getprojects()[projectNumber - 1].getCurrentPhase() == 5) {
+        if (driver.getprojects()[projectNumber - 1].getCurrentPhase() == 6) {
             System.out.println(
                     "\nYou can't end the phase of this project. This project has endend");
             driver.endPhase(projectNumber - 1);
             System.out.println(driver.getprojects()[projectNumber - 1]
-                    .getPhase()[driver.getprojects()[projectNumber - 1].getCurrentPhase()].finishedPhase());
+                    .getPhase()[driver.getprojects()[projectNumber - 1].getCurrentPhase() - 1].finishedPhase());
         } else {
 
             // Displaying the stage information
@@ -189,7 +189,7 @@ class Main {
 
             if (confirmation.equalsIgnoreCase("y") || confirmation.equalsIgnoreCase("")) {
                 driver.endPhase(projectNumber - 1);
-                System.out.println("Phase endending complete");
+                System.out.println("\nPhase endending complete");
             } else {
                 System.out.println("\nCancelling task..\n");
             }
