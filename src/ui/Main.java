@@ -157,42 +157,49 @@ class Main {
     }
 
     public void endPhase() {
-        int projectNumber = -1;
-        System.out.println("\t Wich project do you want to end their phase? : \n");
+        int projectNumber = -2;
+        System.out.println("\t Wich project do you want to end their phase? :");
 
         do {
+            System.out.println("\n");
             // Printing all the projects name's
             for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
                 System.out.println((i + 1) + ": " + driver.getprojects()[i].getProjectName());
             }
+            System.out.println("\n-1 : to exit the menu");
             // Picking a project
             projectNumber = validateIntegerInput();
-        } while (projectNumber <= 0
-                || projectNumber > driver.getFirtsValidPosition());
+        } while ((projectNumber <= 0
+                || projectNumber > driver.getFirtsValidPosition()) && projectNumber != -1);
 
-        if (driver.getprojects()[projectNumber - 1].getCurrentPhase() == 6) {
-            System.out.println(
-                    "\nYou can't end the phase of this project. This project has endend");
-            driver.endPhase(projectNumber - 1);
-            System.out.println(driver.getprojects()[projectNumber - 1]
-                    .getPhase()[driver.getprojects()[projectNumber - 1].getCurrentPhase() - 1].finishedPhase());
-        } else {
-
-            // Displaying the stage information
-            System.out.println("\nCURRENT STAGE -> " +
-                    driver.getprojects()[projectNumber - 1].getPhase()[driver.getprojects()[projectNumber - 1]
-                            .getCurrentPhase()]);
-            // Confirmation
-            System.out.println("\nAre you sure you want to end this phase? Y/n ");
-            input.nextLine();// Grab the enter
-            String confirmation = input.nextLine();
-
-            if (confirmation.equalsIgnoreCase("y") || confirmation.equalsIgnoreCase("")) {
+        if (projectNumber >= 0) {
+            if (driver.getprojects()[projectNumber - 1].getCurrentPhase() == 6) {
+                System.out.println(
+                        "\nYou can't end the phase of this project. This project has endend");
                 driver.endPhase(projectNumber - 1);
-                System.out.println("\nPhase endending complete");
+                System.out.println(driver.getprojects()[projectNumber - 1]
+                        .getPhase()[driver.getprojects()[projectNumber - 1].getCurrentPhase() - 1].finishedPhase());
             } else {
-                System.out.println("\nCancelling task..\n");
+
+                // Displaying the stage information
+                System.out.println(
+                        "-------------" + "\nPROJECT -> " + driver.getprojects()[projectNumber - 1].getProjectName());
+                System.out.println("\nCURRENT STAGE -> " +
+                        driver.getprojects()[projectNumber - 1].getPhase()[driver.getprojects()[projectNumber - 1]
+                                .getCurrentPhase()]);
+                // Confirmation
+                System.out.println("\nAre you sure you want to end this phase? Y/n ");
+                input.nextLine();// Grab the enter
+                String confirmation = input.nextLine();
+
+                if (confirmation.equalsIgnoreCase("y") || confirmation.equalsIgnoreCase("")) {
+                    driver.endPhase(projectNumber - 1);
+                    System.out.println("\nPhase endending complete");
+                } else {
+                    System.out.println("\nCancelling task..\n");
+                }
             }
+
         }
 
     }
