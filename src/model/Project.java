@@ -29,6 +29,10 @@ public class Project {
         this.projectBudget = projectBudget;
     }
 
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
     public int getCurrentPhase() {
         return currentPhase;
     }
@@ -49,12 +53,12 @@ public class Project {
         return this.managers;
     }
 
-    public void setEndingDate(Calendar endingPlannedDate) {
-        this.endingDate = endingPlannedDate;
+    public void setEndingDate(Calendar endingDate) {
+        this.endingDate = endingDate;
     }
 
-    public void setStartDate(Calendar startPlannedDate) {
-        this.startDate = startPlannedDate;
+    public void setStartDate(Calendar startDate) {
+        this.startDate = startDate;
     }
 
     public Calendar getStartDate() {

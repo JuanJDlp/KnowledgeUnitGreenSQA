@@ -59,4 +59,13 @@ public class Phase {
                 "\n Ending Planned date: " + sdf.format(this.endingPlannedDate.getTime());
     }
 
+    public String finishedPhase() {
+        return "Phase: " + this.phaseType +
+                "\n Active: " + this.active +
+                "\n Start planned date: " + sdf.format(this.startPlannedDate.getTime()) +
+                "\n Ending Planned date: " + sdf.format(this.endingPlannedDate.getTime()) +
+                "\nStarting date: " + sdf.format(this.realStartingDate.getTime()) +
+                "\nEnding date: " + sdf.format(this.realEndingDate.getTime());
+    }
+
 }

@@ -165,22 +165,34 @@ class Main {
             for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
                 System.out.println((i + 1) + ": " + driver.getprojects()[i].getProjectName());
             }
+            // Picking a project
             projectNumber = validateIntegerInput();
         } while (projectNumber <= 0
                 || projectNumber > driver.getFirtsValidPosition());
 
-        System.out.println("\nCURRENT STAGE -> " +
-                driver.getprojects()[projectNumber - 1].getPhase()[driver.getprojects()[projectNumber - 1]
-                        .getCurrentPhase()]);
-
-        System.out.println("\nAre you sure you want to end this phase? Y/n ");
-        input.nextLine();// Grab the enter
-        String confirmation = input.nextLine();
-        if (confirmation.equalsIgnoreCase("y") || confirmation.equalsIgnoreCase("")) {
-            driver.endPhase(projectNumber);
-            System.out.println("Phase endending complete");
+        if (driver.getprojects()[projectNumber - 1].getCurrentPhase() == 5) {
+            System.out.println(
+                    "\nYou can't end the phase of this project. This project has endend");
+            driver.endPhase(projectNumber - 1);
+            System.out.println(driver.getprojects()[projectNumber - 1]
+                    .getPhase()[driver.getprojects()[projectNumber - 1].getCurrentPhase()].finishedPhase());
         } else {
-            System.out.println("\nCancelling task..\n");
+
+            // Displaying the stage information
+            System.out.println("\nCURRENT STAGE -> " +
+                    driver.getprojects()[projectNumber - 1].getPhase()[driver.getprojects()[projectNumber - 1]
+                            .getCurrentPhase()]);
+            // Confirmation
+            System.out.println("\nAre you sure you want to end this phase? Y/n ");
+            input.nextLine();// Grab the enter
+            String confirmation = input.nextLine();
+
+            if (confirmation.equalsIgnoreCase("y") || confirmation.equalsIgnoreCase("")) {
+                driver.endPhase(projectNumber - 1);
+                System.out.println("Phase endending complete");
+            } else {
+                System.out.println("\nCancelling task..\n");
+            }
         }
 
     }
