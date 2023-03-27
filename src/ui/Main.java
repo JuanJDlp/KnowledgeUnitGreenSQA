@@ -115,7 +115,7 @@ class Main {
         String projectName = input.nextLine();
 
         while (driver.findProject(projectName) != -1) {
-            System.out.println("\nProject name alredy exists, please pick another one" + "\n>> ");
+            System.out.println("\nProject name alredy exists, please pick another name" + "\n>> ");
             projectName = input.nextLine();
         }
 
@@ -169,7 +169,7 @@ class Main {
             System.out.println("\n");
             // Printing all the projects name's
             for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
-                if (driver.getprojects()[i].getCurrentPhase() != 6) {
+                if (driver.getprojects()[i].getCurrentPhase() != -5) {
                     System.out.println((i + 1) + ": " + driver.getprojects()[i].getProjectName()
                             + " | " + driver.getprojects()[i].getPhase()[driver.getprojects()[i]
                                     .getCurrentPhase()].getPhaseType());
@@ -185,12 +185,14 @@ class Main {
                 || projectNumber > driver.getFirtsValidPosition()) && projectNumber != -1);
 
         if (projectNumber >= 0) {
-            if (driver.getprojects()[projectNumber - 1].getCurrentPhase() == 6) {
+            if (driver.getprojects()[projectNumber - 1].getCurrentPhase() == -5) {
                 System.out.println(
                         "\nYou can't end the phase of this project. This project has endend");
                 driver.endPhase(projectNumber - 1);
                 System.out.println(driver.getprojects()[projectNumber - 1]
-                        .getPhase()[driver.getprojects()[projectNumber - 1].getCurrentPhase() - 1].finishedPhase());
+                        .getPhase()[driver.getprojects()[projectNumber - 1]
+                                .getPhase().length - 1]
+                        .finishedPhase());
             } else {
 
                 // Displaying the stage information

@@ -74,16 +74,14 @@ public class KnowledgeSystem {
         Project currentProject = projects[projectNumber];
         int phaseIndex = currentProject.getCurrentPhase();
 
-        if (phaseIndex < 5) {
+        if (phaseIndex != -5 && phaseIndex != 5) {
             currentProject.getPhase()[phaseIndex].setActive(false);
             currentProject.getPhase()[phaseIndex].setRealEndingDate(actualTime);
             currentProject.getPhase()[phaseIndex + 1].setRealStartingDate(actualTime);
             currentProject.getPhase()[phaseIndex + 1].setActive(true);
-            currentProject.setCurrentPhase(phaseIndex + 1);
         } else if (phaseIndex == 5) {
             currentProject.getPhase()[phaseIndex].setActive(false);
             currentProject.getPhase()[phaseIndex].setRealEndingDate(actualTime);
-            currentProject.setCurrentPhase(6);
         }
 
     }

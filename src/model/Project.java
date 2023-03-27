@@ -11,7 +11,6 @@ public class Project {
     private Calendar startDate;
     private Calendar endingDate;
     private double projectBudget;
-    private int currentPhase = 0;
     private ArrayList<Employee> managers = new ArrayList<Employee>();
     private Phase[] phase = {
             new Phase("START", true),
@@ -31,14 +30,6 @@ public class Project {
 
     public void setProjectName(String projectName) {
         this.projectName = projectName;
-    }
-
-    public int getCurrentPhase() {
-        return currentPhase;
-    }
-
-    public void setCurrentPhase(int currentPhase) {
-        this.currentPhase = currentPhase;
     }
 
     public Phase[] getPhase() {
@@ -63,6 +54,18 @@ public class Project {
 
     public Calendar getStartDate() {
         return startDate;
+    }
+
+    public int getCurrentPhase() {
+        boolean found = false;
+        int position = -5;
+        for (int i = 0; i < phase.length && !found; i++) {
+            if (phase[i].getActive() == true) {
+                found = true;
+                position = i;
+            }
+        }
+        return position;
     }
 
     @Override
