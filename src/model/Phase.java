@@ -12,6 +12,8 @@ public class Phase {
     private boolean approved;
     private boolean active;
     private String phaseType;
+    private final int CAPSULESIZE = 50;
+    private Capsule[] capsules = new Capsule[CAPSULESIZE];
 
     public Phase(String phaseType, boolean active) {
         this.phaseType = phaseType;
@@ -56,7 +58,30 @@ public class Phase {
         return active;
     }
 
+    public Capsule[] getCapsules() {
+        return capsules;
+    }
+
     // Methods-----
+
+    public String addCapsule(Capsule capsule) {
+        capsules[getFirtsValidCapsule()] = capsule;
+        capsule.setID(getFirtsValidCapsule() - 1);
+        return capsule.toString();
+    }
+
+    public int getFirtsValidCapsule() {
+        boolean isFound = false; // flag
+        int pos = -1;
+        for (int i = 0; i < CAPSULESIZE && !isFound; i++) {
+            if (capsules[i] == null) {
+                isFound = true;
+                pos = i;
+            }
+        }
+        return pos;
+    }
+
     @Override
     public String toString() {
         return "Phase: " + this.phaseType +

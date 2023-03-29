@@ -25,6 +25,10 @@ public class KnowledgeSystem {
         return SIZEPROJECTS;
     }
 
+    public Employee[] getEmployees() {
+        return employee;
+    }
+
     // Adds a manager to a project based on its position.
     public void addManager(String name, String phone) {
         projects[getFirtsValidPosition() - 1].addManager(name, phone);
@@ -62,7 +66,18 @@ public class KnowledgeSystem {
         currentProject.endPhase();
     }
 
-    public Calendar stringToCalendar(String string) {
+    public String addCapsule(int projectNumber, String capsuleType, String description, int employeeNumber,
+            String learnings) {
+        Capsule capsule = employee[employeeNumber].creatCapsule(capsuleType, description, learnings);
+        capsule.setCollaborator(employee[employeeNumber]);
+        projects[projectNumber].addCapsule(capsule);
+        return "\nCapsule created succesfully created \n\n"
+                + projects[projectNumber].getPhase()[projects[projectNumber].getCurrentPhase()]
+                        .getCapsules()[projects[projectNumber].getPhase()[projects[projectNumber].getCurrentPhase()]
+                                .getFirtsValidCapsule() - 1];
+    }
+
+    public Calendar stringToCalendar(String string) { // Esta funcion no se esta usando
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
         try {

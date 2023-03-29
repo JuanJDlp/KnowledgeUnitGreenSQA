@@ -95,6 +95,10 @@ public class Project {
 
     }
 
+    public void addCapsule(Capsule capsule) {
+        phase[getCurrentPhase()].addCapsule(capsule);
+    }
+
     public int getCurrentPhase() {
         boolean found = false;
         int position = -5;
