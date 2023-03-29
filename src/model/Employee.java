@@ -19,10 +19,12 @@ public class Employee {
         this.role = role;
     }
 
-    public Capsule creatCapsule(String capsuleType, String description, String learnings) {
-        Capsule capsule = new Capsule(description, capsuleType, learnings);
+    public ArrayList<Capsule> getCapsules() {
+        return capsules;
+    }
+
+    public void addCapsule(Capsule capsule) {
         capsules.add(capsule);
-        return capsule;
     }
 
     @Override

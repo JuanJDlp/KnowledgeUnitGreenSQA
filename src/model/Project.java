@@ -107,9 +107,11 @@ public class Project {
 
     public void addCapsule(String capsuleType, String description, int employeeNumber,
             String learnings) {
-        Capsule capsule = employee[employeeNumber].creatCapsule(capsuleType, description, learnings);
-        capsule.setCollaborator(employee[employeeNumber]);
+        String ID = "CC" + String.valueOf(phase[getCurrentPhase()].getFirtsValidCapsule());
+        Capsule capsule = new Capsule("CC" + ID, description, capsuleType, learnings, employee[employeeNumber]);
+        employee[employeeNumber].addCapsule(capsule);
         phase[getCurrentPhase()].addCapsule(capsule);
+
     }
 
     public int getCurrentPhase() {

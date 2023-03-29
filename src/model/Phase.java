@@ -64,10 +64,8 @@ public class Phase {
 
     // Methods-----
 
-    public String addCapsule(Capsule capsule) {
+    public void addCapsule(Capsule capsule) {
         capsules[getFirtsValidCapsule()] = capsule;
-        capsule.setID(getFirtsValidCapsule() - 1);
-        return capsule.toString();
     }
 
     public int getFirtsValidCapsule() {

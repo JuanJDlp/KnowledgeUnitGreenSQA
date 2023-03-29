@@ -11,14 +11,16 @@ public class Capsule {
     private boolean approved = false;
     private ArrayList<String> hastags = new ArrayList<String>();
 
-    public Capsule(String description, String capsuleType, String learnings) {
+    public Capsule(String id, String description, String capsuleType, String learnings, Employee collaborator) {
+        this.ID = id;
         this.description = description;
         this.capsuleType = capsuleType;
         this.learnings = learnings;
+        this.collaborator = collaborator;
     }
 
-    public void setID(int iD) {
-        ID = "CC" + iD;
+    public void setID(String iD) {
+        ID = iD;
     }
 
     public String getID() {
