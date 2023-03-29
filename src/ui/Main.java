@@ -248,17 +248,20 @@ class Main {
         String capsuleType = "";
         int Typeoption = -1;
         int employee = -1;
-        System.out.println("Choose an employee profile.\n");
-        for (int i = 0; i < driver.getEmployees().length; i++) {
-            System.out.println((i + 1) + ": " + driver.getEmployees()[i] + "\n");
+
+        System.out.println("Which project would you like to write a capsule to?: \n");
+        for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
+            System.out.println((i + 1) + ": " + driver.getprojects()[i].getProjectName());
+        }
+        int projectNumber = validateIntegerInput() - 1;
+
+        System.out.println("\nChoose an employee profile.\n");
+        for (int i = 0; i < driver.employeesInAProject(projectNumber).length; i++) {
+            System.out.println((i + 1) + ": " + driver.employeesInAProject(projectNumber)[i].toStringEmployee() + "\n");
         }
         do {
             employee = validateIntegerInput() - 1;
-        } while (employee < 0 || employee > driver.getEmployees().length);
-
-        System.out.println("Which project would you like to write a capsule to?: \n");
-        showProjects();
-        int projectNumber = validateIntegerInput() - 1;
+        } while (employee < 0 || employee > driver.employeesInAProject(projectNumber).length);
 
         System.out.println("\nWrite a short description of the capsule: ");
         input.nextLine();

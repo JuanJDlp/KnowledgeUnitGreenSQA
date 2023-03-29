@@ -20,6 +20,12 @@ public class Project {
             new Phase("CLOSING AND CONTROL", false),
             new Phase("MAINTAINING THE PROJECT", false)
     };
+    private Employee[] employee = {
+            new Employee("Vanessa", "COLLABORATOR"),
+            new Employee("Rony", "COLLABORATOR"),
+            new Employee("Mariana", "COLLABORATOR"),
+            new Employee("Natalia", "COLLABORATOR")
+    };
 
     public Project(String projecName, String clientName, Calendar startDate, double projectBudget) {
         this.projectName = projecName;
@@ -55,6 +61,10 @@ public class Project {
 
     public Calendar getStartDate() {
         return startDate;
+    }
+
+    public Employee[] getEmployee() {
+        return employee;
     }
 
     // Methods--------------------
@@ -95,7 +105,10 @@ public class Project {
 
     }
 
-    public void addCapsule(Capsule capsule) {
+    public void addCapsule(String capsuleType, String description, int employeeNumber,
+            String learnings) {
+        Capsule capsule = employee[employeeNumber].creatCapsule(capsuleType, description, learnings);
+        capsule.setCollaborator(employee[employeeNumber]);
         phase[getCurrentPhase()].addCapsule(capsule);
     }
 

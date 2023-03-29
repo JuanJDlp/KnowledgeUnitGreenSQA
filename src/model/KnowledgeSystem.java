@@ -7,12 +7,6 @@ import java.util.Calendar;
 public class KnowledgeSystem {
     private final int SIZEPROJECTS = 10;
     private Project[] projects = new Project[SIZEPROJECTS];
-    private Employee[] employee = {
-            new Employee("Vanessa", null, "COLLABORATOR"),
-            new Employee("Rony", null, "COLLABORATOR"),
-            new Employee("Mariana", null, "COLLABORATOR"),
-            new Employee("Natalia", null, "COLLABORATOR")
-    };
 
     public KnowledgeSystem() {
         /* Empty constructor */}
@@ -25,13 +19,13 @@ public class KnowledgeSystem {
         return SIZEPROJECTS;
     }
 
-    public Employee[] getEmployees() {
-        return employee;
-    }
-
     // Adds a manager to a project based on its position.
     public void addManager(String name, String phone) {
         projects[getFirtsValidPosition() - 1].addManager(name, phone);
+    }
+
+    public Employee[] employeesInAProject(int projectNumber) {
+        return projects[projectNumber].getEmployee();
     }
 
     public void addProject(String projectName, String clientName, double projectBudge) {
@@ -68,9 +62,7 @@ public class KnowledgeSystem {
 
     public String addCapsule(int projectNumber, String capsuleType, String description, int employeeNumber,
             String learnings) {
-        Capsule capsule = employee[employeeNumber].creatCapsule(capsuleType, description, learnings);
-        capsule.setCollaborator(employee[employeeNumber]);
-        projects[projectNumber].addCapsule(capsule);
+        projects[projectNumber].addCapsule(capsuleType, description, employeeNumber, learnings);
         return "\nCapsule created succesfully created \n\n"
                 + projects[projectNumber].getPhase()[projects[projectNumber].getCurrentPhase()]
                         .getCapsules()[projects[projectNumber].getPhase()[projects[projectNumber].getCurrentPhase()]

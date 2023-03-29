@@ -54,7 +54,7 @@ public class Capsule {
         return "ID: " + this.ID +
                 "\nDescription: " + this.description +
                 "\nCapsule Type: " + this.capsuleType +
-                "\nEmployee: " + this.collaborator.toString() +
+                "\nEmployee: " + this.collaborator.toStringEmployee() +
                 "\nLearnings: " + this.learnings;
     }
 }
