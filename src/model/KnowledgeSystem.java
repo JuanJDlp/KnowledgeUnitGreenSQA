@@ -56,8 +56,7 @@ public class KnowledgeSystem {
     }
 
     public void endPhase(int projectNumber) {
-        Project currentProject = projects[projectNumber];
-        currentProject.endPhase();
+        projects[projectNumber].endPhase();
     }
 
     public String addCapsule(int projectNumber, String capsuleType, String description, int employeeNumber,
@@ -65,15 +64,13 @@ public class KnowledgeSystem {
         String msj = "\nFATAL: There needs to be hastags in the learnings and in the description.\n";
         if (projects[projectNumber].addCapsule(capsuleType, description, employeeNumber, learnings)) {
             msj = "\nCapsule created succesfully created \n\n"
-                    + projects[projectNumber].getPhase()[projects[projectNumber].getCurrentPhase()]
-                            .getCapsules()[projects[projectNumber].getPhase()[projects[projectNumber].getCurrentPhase()]
-                                    .getFirtsValidCapsule() - 1]
+                    + projects[projectNumber].getCurrentPhase()
+                            .getCapsules()[projects[projectNumber].getCurrentPhase().getFirtsValidCapsule() - 1]
 
                     + "\n" +
 
-                    projects[projectNumber].getPhase()[projects[projectNumber].getCurrentPhase()]
-                            .getCapsules()[projects[projectNumber].getPhase()[projects[projectNumber].getCurrentPhase()]
-                                    .getFirtsValidCapsule() - 1]
+                    projects[projectNumber].getCurrentPhase()
+                            .getCapsules()[projects[projectNumber].getCurrentPhase().getFirtsValidCapsule() - 1]
                             .getHastags();
         }
         return msj;

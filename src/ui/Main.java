@@ -38,11 +38,15 @@ class Main {
         switch (option) {
 
             case 1:
-                createProject();
+                if (driver.getFirtsValidPosition() == -2) {
+                    System.out.println("You can't craete more projects, the projects are full.");
+                } else {
+                    createProject();
+                }
                 break;
 
             case 2:
-                if (driver.getFirtsValidPosition() >= 1) {
+                if (driver.getprojects()[0] != null) {
                     endPhase();
                 } else {
                     System.out.println("\nThere is no current projects.\n");
@@ -50,7 +54,7 @@ class Main {
                 break;
 
             case 3:
-                if (driver.getFirtsValidPosition() >= 1) {
+                if (driver.getprojects()[0] != null) {
                     addCapsule();
                 } else {
                     System.out.println("\nThere is no current projects.\n");
@@ -194,16 +198,7 @@ class Main {
         do {
             System.out.println("\n");
             // Printing all the projects name's
-            for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
-                if (driver.getprojects()[i].getCurrentPhase() != -5) {
-                    System.out.println((i + 1) + ": " + driver.getprojects()[i].getProjectName()
-                            + " | " + driver.getprojects()[i].getPhase()[driver.getprojects()[i]
-                                    .getCurrentPhase()].getPhaseType());
-                } else {
-                    System.out.println((i + 1) + ": " + driver.getprojects()[i].getProjectName()
-                            + " | " + "THE PROJECT HAS ENDEND");
-                }
-            }
+            showProjectStatus();
             System.out.println("\n-1 : to exit the menu");
             // Picking a project
             projectNumber = validateIntegerInput();
@@ -211,7 +206,7 @@ class Main {
                 || projectNumber > driver.getFirtsValidPosition()) && projectNumber != -1);
 
         if (projectNumber >= 0) {
-            if (driver.getprojects()[projectNumber - 1].getCurrentPhase() == -5) {
+            if (driver.getprojects()[projectNumber - 1].getCurrentPhase() == null) {
                 System.out.println(
                         "\nYou can't end the phase of this project. This project has ended");
                 driver.endPhase(projectNumber - 1);
@@ -225,8 +220,7 @@ class Main {
                 System.out.println(
                         "-------------" + "\nPROJECT -> " + driver.getprojects()[projectNumber - 1].getProjectName());
                 System.out.println("\nCURRENT STAGE -> " +
-                        driver.getprojects()[projectNumber - 1].getPhase()[driver.getprojects()[projectNumber - 1]
-                                .getCurrentPhase()]);
+                        driver.getprojects()[projectNumber - 1].getCurrentPhase());
                 // Confirmation
                 System.out.println("\nAre you sure you want to end this phase? Y/n ");
                 input.nextLine();// Grab the enter
@@ -250,56 +244,72 @@ class Main {
         int employee = -1;
 
         System.out.println("Which project would you like to write a capsule to?: \n");
-        for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
-            System.out.println((i + 1) + ": " + driver.getprojects()[i].getProjectName());
-        }
+        showProjectStatus();
         int projectNumber = validateIntegerInput() - 1;
 
-        System.out.println("\nChoose an employee profile.\n");
-        for (int i = 0; i < driver.employeesInAProject(projectNumber).length; i++) {
-            System.out.println((i + 1) + ": " + driver.employeesInAProject(projectNumber)[i].toStringEmployee() + "\n");
+        if (driver.getprojects()[projectNumber].getCurrentPhase() != null) {
+
+            System.out.println("\nChoose an employee profile.\n");
+            for (int i = 0; i < driver.employeesInAProject(projectNumber).length; i++) {
+                System.out.println(
+                        (i + 1) + ": " + driver.employeesInAProject(projectNumber)[i].toStringEmployee() + "\n");
+            }
+            do {
+                employee = validateIntegerInput() - 1;
+            } while (employee < 0 || employee > driver.employeesInAProject(projectNumber).length);
+
+            System.out.println("\nWrite a short description of the capsule: ");
+            input.nextLine();
+            String description = input.nextLine();
+
+            System.out.println("\nPlease select a type: " +
+                    "\n1.-TECHNIQUE " +
+                    "\n2.-MANAGMENT" +
+                    "\n3.-DOMAIN" +
+                    "\n4.-EXPERIENCES");
+            do {
+                Typeoption = validateIntegerInput();
+            } while (Typeoption < 1 || Typeoption > 4);
+            switch (Typeoption) {
+                case 1:
+                    capsuleType = "TECHNIQUE";
+                    break;
+                case 2:
+                    capsuleType = "MANAGMENT";
+                    break;
+                case 3:
+                    capsuleType = "DOMAIN";
+                    break;
+                case 4:
+                    capsuleType = "EXPERIENCES";
+                    break;
+            }
+            System.out.println("\nWrite your learnings: ");
+            input.nextLine();
+            String learnings = input.nextLine();
+
+            System.out.println(driver.addCapsule(projectNumber, capsuleType, description, employee, learnings));
+        } else {
+            System.out.println("\nThe project has enden, it is not possible to add a capsule.\n");
         }
-        do {
-            employee = validateIntegerInput() - 1;
-        } while (employee < 0 || employee > driver.employeesInAProject(projectNumber).length);
-
-        System.out.println("\nWrite a short description of the capsule: ");
-        input.nextLine();
-        String description = input.nextLine();
-
-        System.out.println("\nPlease select a type: " +
-                "\n1.-TECHNIQUE " +
-                "\n2.-MANAGMENT" +
-                "\n3.-DOMAIN" +
-                "\n4.-EXPERIENCES");
-        do {
-            Typeoption = validateIntegerInput();
-        } while (Typeoption < 1 || Typeoption > 4);
-        switch (Typeoption) {
-            case 1:
-                capsuleType = "TECHNIQUE";
-                break;
-            case 2:
-                capsuleType = "MANAGMENT";
-                break;
-            case 3:
-                capsuleType = "DOMAIN";
-                break;
-            case 4:
-                capsuleType = "EXPERIENCES";
-                break;
-        }
-        System.out.println("\nWrite your learnings: ");
-        input.nextLine();
-        String learnings = input.nextLine();
-
-        System.out.println(driver.addCapsule(projectNumber, capsuleType, description, employee, learnings));
 
     }
 
     public void showProjects() {
         for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
             System.out.println((i + 1) + ": " + driver.getprojects()[i]);
+        }
+    }
+
+    public void showProjectStatus() {
+        for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
+            if (driver.getprojects()[i].getCurrentPhase() != null) {
+                System.out.println((i + 1) + ": " + driver.getprojects()[i].getProjectName()
+                        + " | " + driver.getprojects()[i].getCurrentPhase().getPhaseType());
+            } else {
+                System.out.println((i + 1) + ": " + driver.getprojects()[i].getProjectName()
+                        + " | " + "THE PROJECT HAS ENDEND");
+            }
         }
     }
 

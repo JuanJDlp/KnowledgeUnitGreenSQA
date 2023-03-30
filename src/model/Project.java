@@ -93,16 +93,19 @@ public class Project {
 
         Calendar actualTime = Calendar.getInstance();
 
-        int phaseIndex = getCurrentPhase();
+        Phase currentPhase = getCurrentPhase();
 
-        if (phaseIndex != -5 && phaseIndex != 5) {
-            getPhase()[phaseIndex].setActive(false);
-            getPhase()[phaseIndex].setRealEndingDate(actualTime);
-            getPhase()[phaseIndex + 1].setRealStartingDate(actualTime);
-            getPhase()[phaseIndex + 1].setActive(true);
-        } else if (phaseIndex == 5) {
-            getPhase()[phaseIndex].setActive(false);
-            getPhase()[phaseIndex].setRealEndingDate(actualTime);
+        if (currentPhase != null && currentPhase != phase[5]) {
+            Phase nextPhase = getCurrentPhase(1);
+
+            currentPhase.setRealEndingDate(actualTime);
+            currentPhase.setActive(false);
+
+            nextPhase.setRealStartingDate(actualTime);
+            nextPhase.setActive(true);
+        } else if (currentPhase == phase[5]) {
+            currentPhase.setActive(false);
+            currentPhase.setRealEndingDate(actualTime);
         }
 
     }
@@ -111,11 +114,11 @@ public class Project {
             String learnings) {
         boolean added = false;
         if (hasHashWords(learnings) && hasHashWords(description)) {
-            String ID = "CC" + String.valueOf(phase[getCurrentPhase()].getFirtsValidCapsule());
+            String ID = "CC" + String.valueOf(getCurrentPhase().getFirtsValidCapsule());
             Capsule capsule = new Capsule(ID, description, capsuleType, learnings, employee[employeeNumber]);
             employee[employeeNumber].addCapsule(capsule);
-            phase[getCurrentPhase()].addCapsule(capsule);
-            added = true;
+            getCurrentPhase().addCapsule(capsule);
+            added = true; // Flag
         }
         return added;
     }
@@ -127,16 +130,38 @@ public class Project {
         return m.find();
     }
 
-    public int getCurrentPhase() {
+    public Phase getCurrentPhase() {
+        Phase currentStage = null;
         boolean found = false;
-        int position = -5;
+        int position = -1;
         for (int i = 0; i < phase.length && !found; i++) {
             if (phase[i].getActive() == true) {
                 found = true;
                 position = i;
             }
         }
-        return position;
+        if (position != -1) {
+            currentStage = phase[position];
+        }
+
+        return currentStage;
+    }
+
+    public Phase getCurrentPhase(int PositionsToRight) {
+        Phase currentStage = null;
+        boolean found = false;
+        int position = -1;
+        for (int i = 0; i < phase.length && !found; i++) {
+            if (phase[i].getActive() == true) {
+                found = true;
+                position = i;
+            }
+        }
+        if (position != -1) {
+            currentStage = phase[position + PositionsToRight];
+        }
+
+        return currentStage;
     }
 
     @Override
