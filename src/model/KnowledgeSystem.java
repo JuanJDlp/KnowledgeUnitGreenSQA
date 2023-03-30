@@ -62,11 +62,21 @@ public class KnowledgeSystem {
 
     public String addCapsule(int projectNumber, String capsuleType, String description, int employeeNumber,
             String learnings) {
-        projects[projectNumber].addCapsule(capsuleType, description, employeeNumber, learnings);
-        return "\nCapsule created succesfully created \n\n"
-                + projects[projectNumber].getPhase()[projects[projectNumber].getCurrentPhase()]
-                        .getCapsules()[projects[projectNumber].getPhase()[projects[projectNumber].getCurrentPhase()]
-                                .getFirtsValidCapsule() - 1];
+        String msj = "\nFATAL: There needs to be hastags in the learnings and in the description.\n";
+        if (projects[projectNumber].addCapsule(capsuleType, description, employeeNumber, learnings)) {
+            msj = "\nCapsule created succesfully created \n\n"
+                    + projects[projectNumber].getPhase()[projects[projectNumber].getCurrentPhase()]
+                            .getCapsules()[projects[projectNumber].getPhase()[projects[projectNumber].getCurrentPhase()]
+                                    .getFirtsValidCapsule() - 1]
+
+                    + "\n" +
+
+                    projects[projectNumber].getPhase()[projects[projectNumber].getCurrentPhase()]
+                            .getCapsules()[projects[projectNumber].getPhase()[projects[projectNumber].getCurrentPhase()]
+                                    .getFirtsValidCapsule() - 1]
+                            .getHastags();
+        }
+        return msj;
     }
 
     public Calendar stringToCalendar(String string) { // Esta funcion no se esta usando

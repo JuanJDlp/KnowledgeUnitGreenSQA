@@ -1,6 +1,8 @@
 package model;
 
-import java.util.ArrayList;;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;;
 
 public class Capsule {
     private String ID;
@@ -17,6 +19,8 @@ public class Capsule {
         this.capsuleType = capsuleType;
         this.learnings = learnings;
         this.collaborator = collaborator;
+        addHasTags(description);
+        addHasTags(learnings);
     }
 
     public void setID(String iD) {
@@ -43,12 +47,17 @@ public class Capsule {
         return this.approved;
     }
 
-    public void addHastag(String hastag) {
-        hastags.add(hastag);
-    }
-
     public ArrayList<String> getHastags() {
         return hastags;
+    }
+
+    // -----METHODS-----
+    public void addHasTags(String text) {
+        Pattern p = Pattern.compile("#([^#]+)#");
+        Matcher m = p.matcher(text);
+        while (m.find()) {
+            hastags.add(m.group(1).replaceAll("#", ""));
+        }
     }
 
     @Override
