@@ -1,7 +1,5 @@
 package model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class KnowledgeSystem {
@@ -64,27 +62,25 @@ public class KnowledgeSystem {
         String msj = "\nFATAL: There needs to be hastags in the learnings and in the description.\n";
         if (projects[projectNumber].addCapsule(capsuleType, description, employeeNumber, learnings)) {
             msj = "\nCapsule created succesfully created \n\n"
-                    + projects[projectNumber].getCurrentPhase()
-                            .getCapsules()[projects[projectNumber].getCurrentPhase().getFirtsValidCapsule() - 1]
+                    + projects[projectNumber].getCurrentPhase(0)
+                            .getCapsules()[projects[projectNumber].getCurrentPhase(0).getFirtsValidCapsule() - 1]
 
                     + "\n" +
 
-                    projects[projectNumber].getCurrentPhase()
-                            .getCapsules()[projects[projectNumber].getCurrentPhase().getFirtsValidCapsule() - 1]
+                    projects[projectNumber].getCurrentPhase(0)
+                            .getCapsules()[projects[projectNumber].getCurrentPhase(0).getFirtsValidCapsule() - 1]
                             .getHastags();
         }
         return msj;
     }
 
-    public Calendar stringToCalendar(String string) { // Esta funcion no se esta usando
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
-        try {
-            calendar.setTime(sdf.parse(string));
-        } catch (ParseException e) {
-            e.printStackTrace();
+    public String findCapsuleByID(String ID, int projectNumber) {
+        String msg = "\nThere was an error approving the capsule\n";
+        // Iterate in all the phases of the project
+        if (projects[projectNumber].findCapsuleByID(ID)) {
+            msg = "\nCapsule approved correctly\n";
         }
-        return calendar;
+        return msg;
     }
 
     public int getFirtsValidPosition() {

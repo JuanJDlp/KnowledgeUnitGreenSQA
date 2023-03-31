@@ -93,7 +93,7 @@ public class Project {
 
         Calendar actualTime = Calendar.getInstance();
 
-        Phase currentPhase = getCurrentPhase();
+        Phase currentPhase = getCurrentPhase(0);
 
         if (currentPhase != null && currentPhase != phase[5]) {
             Phase nextPhase = getCurrentPhase(1);
@@ -114,10 +114,11 @@ public class Project {
             String learnings) {
         boolean added = false;
         if (hasHashWords(learnings) && hasHashWords(description)) {
-            String ID = "CC" + String.valueOf(getCurrentPhase().getFirtsValidCapsule());
+            String ID = "CC" + this.projectName + getCurrentPhase(0).getPhaseType()
+                    + String.valueOf(getCurrentPhase(0).getFirtsValidCapsule());
             Capsule capsule = new Capsule(ID, description, capsuleType, learnings, employee[employeeNumber]);
             employee[employeeNumber].addCapsule(capsule);
-            getCurrentPhase().addCapsule(capsule);
+            getCurrentPhase(0).addCapsule(capsule);
             added = true; // Flag
         }
         return added;
@@ -130,7 +131,7 @@ public class Project {
         return m.find();
     }
 
-    public Phase getCurrentPhase() {
+    public Phase getCurrentPhase(int PositoinsToMoveToGetTheNextPhase) {
         Phase currentStage = null;
         boolean found = false;
         int position = -1;
@@ -141,27 +142,19 @@ public class Project {
             }
         }
         if (position != -1) {
-            currentStage = phase[position];
+            currentStage = phase[position + PositoinsToMoveToGetTheNextPhase];
         }
 
         return currentStage;
     }
 
-    public Phase getCurrentPhase(int PositionsToRight) {
-        Phase currentStage = null;
+    public boolean findCapsuleByID(String ID) {
         boolean found = false;
-        int position = -1;
         for (int i = 0; i < phase.length && !found; i++) {
-            if (phase[i].getActive() == true) {
-                found = true;
-                position = i;
-            }
+            // Iterate in all the capsules in each phase for the project.
+            found = phase[i].findCapsuleByID(ID);
         }
-        if (position != -1) {
-            currentStage = phase[position + PositionsToRight];
-        }
-
-        return currentStage;
+        return found;
     }
 
     @Override

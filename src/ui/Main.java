@@ -62,6 +62,11 @@ class Main {
                 break;
 
             case 4:
+                if (driver.getprojects()[0] != null) {
+                    approveACapsule();
+                } else {
+                    System.out.println("\nThere is no current projects.\n");
+                }
                 break;
 
             case 5:
@@ -206,21 +211,21 @@ class Main {
                 || projectNumber > driver.getFirtsValidPosition()) && projectNumber != -1);
 
         if (projectNumber >= 0) {
-            if (driver.getprojects()[projectNumber - 1].getCurrentPhase() == null) {
+            if (driver.getprojects()[projectNumber - 1].getCurrentPhase(0) == null) {
                 System.out.println(
                         "\nYou can't end the phase of this project. This project has ended");
                 driver.endPhase(projectNumber - 1);
                 System.out.println(driver.getprojects()[projectNumber - 1]
                         .getPhase()[driver.getprojects()[projectNumber - 1]
                                 .getPhase().length - 1]
-                        .finishedPhase());
+                        .toString());
             } else {
 
                 // Displaying the stage information
                 System.out.println(
                         "-------------" + "\nPROJECT -> " + driver.getprojects()[projectNumber - 1].getProjectName());
                 System.out.println("\nCURRENT STAGE -> " +
-                        driver.getprojects()[projectNumber - 1].getCurrentPhase());
+                        driver.getprojects()[projectNumber - 1].getCurrentPhase(0));
                 // Confirmation
                 System.out.println("\nAre you sure you want to end this phase? Y/n ");
                 input.nextLine();// Grab the enter
@@ -247,12 +252,12 @@ class Main {
         showProjectStatus();
         int projectNumber = validateIntegerInput() - 1;
 
-        if (driver.getprojects()[projectNumber].getCurrentPhase() != null) {
+        if (driver.getprojects()[projectNumber].getCurrentPhase(0) != null) {
 
             System.out.println("\nChoose an employee profile.\n");
             for (int i = 0; i < driver.employeesInAProject(projectNumber).length; i++) {
                 System.out.println(
-                        (i + 1) + ": " + driver.employeesInAProject(projectNumber)[i].toStringEmployee() + "\n");
+                        (i + 1) + ": " + driver.employeesInAProject(projectNumber)[i].toString() + "\n");
             }
             do {
                 employee = validateIntegerInput() - 1;
@@ -295,6 +300,22 @@ class Main {
 
     }
 
+    public void approveACapsule() {
+        int ProjectNumber = -1;
+        showProjectStatus();
+        ProjectNumber = input.nextInt() - 1;
+        for (int i = 0; i < driver.getprojects()[ProjectNumber].getPhase().length; i++) {
+            System.out.println("\n" + driver.getprojects()[ProjectNumber].getPhase()[i].getPhaseType() + "\n");
+            for (int j = 0; j < driver.getprojects()[ProjectNumber].getPhase()[i].getFirtsValidCapsule(); j++) {
+                System.out.println(driver.getprojects()[ProjectNumber].getPhase()[i].getCapsules()[j]);
+            }
+        }
+        System.out.println("\nInserte la ID de la capsula que quiere aprobar: ");
+        input.nextLine();
+        String ID = input.nextLine();
+        System.out.println(driver.findCapsuleByID(ID, ProjectNumber));
+    }
+
     public void showProjects() {
         for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
             System.out.println((i + 1) + ": " + driver.getprojects()[i]);
@@ -303,9 +324,9 @@ class Main {
 
     public void showProjectStatus() {
         for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
-            if (driver.getprojects()[i].getCurrentPhase() != null) {
+            if (driver.getprojects()[i].getCurrentPhase(0) != null) {
                 System.out.println((i + 1) + ": " + driver.getprojects()[i].getProjectName()
-                        + " | " + driver.getprojects()[i].getCurrentPhase().getPhaseType());
+                        + " | " + driver.getprojects()[i].getCurrentPhase(0).getPhaseType());
             } else {
                 System.out.println((i + 1) + ": " + driver.getprojects()[i].getProjectName()
                         + " | " + "THE PROJECT HAS ENDEND");

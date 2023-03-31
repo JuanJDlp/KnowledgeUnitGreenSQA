@@ -1,16 +1,20 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;;
+import java.util.regex.Pattern;
+import java.text.SimpleDateFormat;
 
 public class Capsule {
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
     private String ID;
     private String description;
     private String capsuleType;
     private Employee collaborator;
     private String learnings;
     private boolean approved = false;
+    private Calendar approvalDate;
     private ArrayList<String> hastags = new ArrayList<String>();
 
     public Capsule(String id, String description, String capsuleType, String learnings, Employee collaborator) {
@@ -47,6 +51,14 @@ public class Capsule {
         return this.approved;
     }
 
+    public Calendar getApprovalDate() {
+        return approvalDate;
+    }
+
+    public void setApprovalDate(Calendar approvalDate) {
+        this.approvalDate = approvalDate;
+    }
+
     public ArrayList<String> getHastags() {
         return hastags;
     }
@@ -62,10 +74,17 @@ public class Capsule {
 
     @Override
     public String toString() {
-        return "ID: " + this.ID +
+        String result = "ID: " + this.ID +
                 "\nDescription: " + this.description +
                 "\nCapsule Type: " + this.capsuleType +
-                "\nEmployee: " + this.collaborator.toStringEmployee() +
-                "\nLearnings: " + this.learnings;
+                "\nEmployee: " + this.collaborator.toString() +
+                "\nLearnings: " + this.learnings +
+                "\nAPPROVED: " + this.approved;
+
+        if (this.approved) {
+            result += "\nApproval Date: " + sdf.format(this.approvalDate.getTime()) + "\n";
+        }
+
+        return result;
     }
 }

@@ -80,22 +80,36 @@ public class Phase {
         return pos;
     }
 
-    @Override
-    public String toString() {
-        return "Phase: " + this.phaseType +
-                "\n Active: " + this.active +
-                "\n The project started: " + sdf.format(this.realStartingDate.getTime()) + "\n" +
-                "\n Start planned date: " + sdf.format(this.startPlannedDate.getTime()) +
-                "\n Ending Planned date: " + sdf.format(this.endingPlannedDate.getTime());
+    public boolean findCapsuleByID(String ID) {
+        approved = false;
+        for (int i = 0; i < getFirtsValidCapsule(); i++) {
+            // If the capsules ID is equal to the ID. It will return
+            if (capsules[i].getID().equalsIgnoreCase(ID)) {
+                approved = true;
+                capsules[i].setApproved(true);
+                capsules[i].setApprovalDate(Calendar.getInstance());
+            }
+        }
+        return approved;
     }
 
-    public String finishedPhase() {
-        return "Phase: " + this.phaseType +
+    @Override
+    public String toString() {
+        String result = "Phase: " + this.phaseType +
                 "\n Active: " + this.active +
                 "\n Start planned date: " + sdf.format(this.startPlannedDate.getTime()) +
-                "\n Ending Planned date: " + sdf.format(this.endingPlannedDate.getTime()) + "\n" +
-                "\n Starting date: " + sdf.format(this.realStartingDate.getTime()) +
-                "\n Ending date: " + sdf.format(this.realEndingDate.getTime());
+                "\n Ending Planned date: " + sdf.format(this.endingPlannedDate.getTime());
+
+        if (this.active) {
+            result += "\n The project started: " + sdf.format(this.realStartingDate.getTime());
+        } else {
+            result += "\n Starting date: " + sdf.format(this.realStartingDate.getTime()) +
+                    "\n Ending date: " + sdf.format(this.realEndingDate.getTime());
+        }
+
+        result += "\n";
+
+        return result;
     }
 
 }

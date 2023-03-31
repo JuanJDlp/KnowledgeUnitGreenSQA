@@ -29,10 +29,10 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Name: " + this.name + "\n Phone number:  " + this.phone + "\n Role: " + this.role;
-    }
-
-    public String toStringEmployee() {
-        return "Name: " + this.name + "\nRole: " + this.role;
+        String msj = "Name: " + this.name + "\n Phone number:  " + this.phone + "\n Role: " + this.role;
+        if (this.phone == null) {
+            msj = "Name: " + this.name + "\n Role: " + this.role;
+        }
+        return msj;
     }
 }
