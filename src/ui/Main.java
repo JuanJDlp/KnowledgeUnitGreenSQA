@@ -70,6 +70,11 @@ class Main {
                 break;
 
             case 5:
+                if (driver.getprojects()[0] != null) {
+                    publishCapsule();
+                } else {
+                    System.out.println("\nThere is no current projects.\n");
+                }
                 break;
             default:
                 System.out.println("Option not recognized.");
@@ -305,21 +310,45 @@ class Main {
         showProjectStatus();
         ProjectNumber = input.nextInt() - 1;
         for (int i = 0; i < driver.getprojects()[ProjectNumber].getPhase().length; i++) {
+
             System.out.println("\n" + driver.getprojects()[ProjectNumber].getPhase()[i].getPhaseType() + "\n");
+
             for (int j = 0; j < driver.getprojects()[ProjectNumber].getPhase()[i].getFirtsValidCapsule(); j++) {
                 System.out.println(driver.getprojects()[ProjectNumber].getPhase()[i].getCapsules()[j]);
             }
         }
-        System.out.println("\nInserte la ID de la capsula que quiere aprobar: ");
+        System.out.println("\nInsert the ID of the capsule you want to APPROVE:  ");
         input.nextLine();
         String ID = input.nextLine();
-        System.out.println(driver.findCapsuleByID(ID, ProjectNumber));
+        System.out.println(driver.approveCapsule(ID, ProjectNumber));
     }
 
     public void showProjects() {
         for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
             System.out.println((i + 1) + ": " + driver.getprojects()[i]);
         }
+    }
+
+    public void publishCapsule() {
+        int ProjectNumber = -1;
+        showProjectStatus();
+        ProjectNumber = input.nextInt() - 1;
+
+        for (int i = 0; i < driver.getprojects()[ProjectNumber].getPhase().length; i++) {
+
+            System.out.println("\n" + driver.getprojects()[ProjectNumber].getPhase()[i].getPhaseType() + "\n");
+
+            for (int j = 0; j < driver.getprojects()[ProjectNumber].getPhase()[i].getFirtsValidCapsule(); j++) {
+                if (driver.getprojects()[ProjectNumber].getPhase()[i].getCapsules()[j].getApproved()) {
+                    System.out.println(driver.getprojects()[ProjectNumber].getPhase()[i].getCapsules()[j]);
+                }
+            }
+        }
+        System.out.println("\nInsert the ID of the capsule you want to PUBLISH: ");
+        input.nextLine();
+        String ID = input.nextLine();
+        System.out.println("\nCapsule was approved succesfully, it's HTML FILE its in the capsulesHTML folder \n"
+                + "URL: " + driver.publishCapsule(ID, ProjectNumber));
     }
 
     public void showProjectStatus() {

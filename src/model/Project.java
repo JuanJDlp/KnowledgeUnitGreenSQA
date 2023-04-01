@@ -3,37 +3,46 @@ package model;
 import java.util.Calendar;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Project {
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
+    private SimpleDateFormat sdf;
     private String projectName;
     private String clientName;
     private Calendar startDate;
     private Calendar endingDate;
     private double projectBudget;
-    private ArrayList<Employee> managers = new ArrayList<Employee>();
-    private Phase[] phase = {
-            new Phase("START", true),
-            new Phase("ANALYSIS", false),
-            new Phase("DESIGNING", false),
-            new Phase("EXECUTION", false),
-            new Phase("CLOSING AND CONTROL", false),
-            new Phase("MAINTAINING THE PROJECT", false)
-    };
-    private Employee[] employee = {
-            new Employee("Vanessa", "COLLABORATOR"),
-            new Employee("Rony", "COLLABORATOR"),
-            new Employee("Mariana", "COLLABORATOR"),
-            new Employee("Natalia", "COLLABORATOR")
-    };
+    private ArrayList<Employee> managers;
+    private Phase[] phase;
+    private Employee[] employee;
 
     public Project(String projecName, String clientName, Calendar startDate, double projectBudget) {
+        this.sdf = new SimpleDateFormat("dd/MMM/yyyy");
+
         this.projectName = projecName;
         this.clientName = clientName;
         this.startDate = startDate;
         this.projectBudget = projectBudget;
+
+        this.employee = new Employee[] {
+                new Employee("Vanessa", "COLLABORATOR"),
+                new Employee("Rony", "COLLABORATOR"),
+                new Employee("Mariana", "COLLABORATOR"),
+                new Employee("Natalia", "COLLABORATOR")
+        };
+
+        this.phase = new Phase[] {
+                new Phase("START", true),
+                new Phase("ANALYSIS", false),
+                new Phase("DESIGNING", false),
+                new Phase("EXECUTION", false),
+                new Phase("CLOSING AND CONTROL", false),
+                new Phase("MAINTAINING THE PROJECT", false)
+        };
+
+        this.managers = new ArrayList<Employee>();
     }
 
     // Getters And Setters
@@ -148,13 +157,26 @@ public class Project {
         return currentStage;
     }
 
-    public boolean findCapsuleByID(String ID) {
+    public boolean approveCapsule(String ID) {
         boolean found = false;
         for (int i = 0; i < phase.length && !found; i++) {
-            // Iterate in all the capsules in each phase for the project.
-            found = phase[i].findCapsuleByID(ID);
+            if (phase[i].getFirtsValidCapsule() > 0) {
+                found = phase[i].approveCapsule(ID);
+            }
         }
         return found;
+    }
+
+    public String publishCapsule(String ID) {
+        boolean found = false;
+        String URL = "";
+        for (int i = 0; i < phase.length && !found; i++) {
+            if (phase[i].getFirtsValidCapsule() > 0) {
+                found = true;
+                URL = phase[i].publishCapsule(ID);
+            }
+        }
+        return URL;
     }
 
     @Override

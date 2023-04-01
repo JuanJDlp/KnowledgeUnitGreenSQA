@@ -6,7 +6,7 @@ public class Employee {
     private String name;
     private String phone;
     private String role;
-    private ArrayList<Capsule> capsules = new ArrayList<Capsule>();
+    private ArrayList<Capsule> capsules;
 
     public Employee(String name, String phone, String role) { // Contructor for when creating a Manager
         this.name = name;
@@ -17,6 +17,7 @@ public class Employee {
     public Employee(String name, String role) { // Contructor for when creating a Manager
         this.name = name;
         this.role = role;
+        this.capsules = new ArrayList<Capsule>();
     }
 
     public ArrayList<Capsule> getCapsules() {

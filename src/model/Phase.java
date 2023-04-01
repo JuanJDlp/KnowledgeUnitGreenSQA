@@ -4,20 +4,22 @@ import java.util.Calendar;
 import java.text.SimpleDateFormat;
 
 public class Phase {
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
+    private SimpleDateFormat sdf;
     private Calendar startPlannedDate;
     private Calendar endingPlannedDate;
     private Calendar realStartingDate;
     private Calendar realEndingDate;
-    private boolean approved;
     private boolean active;
     private String phaseType;
-    private final int CAPSULESIZE = 50;
-    private Capsule[] capsules = new Capsule[CAPSULESIZE];
+    private final int CAPSULESIZE;
+    private Capsule[] capsules;
 
     public Phase(String phaseType, boolean active) {
+        this.sdf = new SimpleDateFormat("dd/MMM/yyyy");
         this.phaseType = phaseType;
         this.active = active;
+        this.CAPSULESIZE = 50;
+        this.capsules = new Capsule[CAPSULESIZE];
     }
 
     // Getters and setters
@@ -36,10 +38,6 @@ public class Phase {
 
     public void setRealEndingDate(Calendar realEndingDate) {
         this.realEndingDate = realEndingDate;
-    }
-
-    public void setApproved(boolean approved) {
-        this.approved = approved;
     }
 
     public void setActive(boolean active) {
@@ -70,7 +68,7 @@ public class Phase {
 
     public int getFirtsValidCapsule() {
         boolean isFound = false; // flag
-        int pos = -1;
+        int pos = capsules.length * -1;
         for (int i = 0; i < CAPSULESIZE && !isFound; i++) {
             if (capsules[i] == null) {
                 isFound = true;
@@ -80,17 +78,40 @@ public class Phase {
         return pos;
     }
 
-    public boolean findCapsuleByID(String ID) {
-        approved = false;
-        for (int i = 0; i < getFirtsValidCapsule(); i++) {
-            // If the capsules ID is equal to the ID. It will return
+    public Capsule findCapsule(String ID) {
+        boolean found = false;
+        Capsule capsule = null;
+        for (int i = 0; i < getFirtsValidCapsule() && !found; i++) {
             if (capsules[i].getID().equalsIgnoreCase(ID)) {
-                approved = true;
-                capsules[i].setApproved(true);
-                capsules[i].setApprovalDate(Calendar.getInstance());
+                found = true;
+                capsule = capsules[i];
             }
         }
-        return approved;
+        return capsule;
+    }
+
+    public boolean approveCapsule(String ID) {
+        boolean isApproved = false;
+        Capsule currentIDCapsule = findCapsule(ID);
+        if (currentIDCapsule != null) {
+            if (!currentIDCapsule.getApproved()) {
+                isApproved = true;
+                currentIDCapsule.setApproved(true);
+                currentIDCapsule.setApprovalDate(Calendar.getInstance());
+            }
+        }
+
+        return isApproved;
+    }
+
+    public String publishCapsule(String ID) {
+        String URL = "FATAL: couldn't publish the capsule, maybe it is not approved or the capsules was alredy published.";
+        Capsule currentIDCapsule = findCapsule(ID);
+        if (currentIDCapsule.getApproved() && currentIDCapsule.createCapsuleHTML()) {
+            URL = currentIDCapsule.createCapsuleURL();
+        }
+
+        return URL;
     }
 
     @Override

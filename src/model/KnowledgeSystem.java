@@ -3,11 +3,13 @@ package model;
 import java.util.Calendar;
 
 public class KnowledgeSystem {
-    private final int SIZEPROJECTS = 10;
-    private Project[] projects = new Project[SIZEPROJECTS];
+    private final int SIZEPROJECTS;
+    private Project[] projects;
 
     public KnowledgeSystem() {
-        /* Empty constructor */}
+        this.SIZEPROJECTS = 10;
+        this.projects = new Project[SIZEPROJECTS];
+    }
 
     public Project[] getprojects() {
         return projects;
@@ -74,13 +76,17 @@ public class KnowledgeSystem {
         return msj;
     }
 
-    public String findCapsuleByID(String ID, int projectNumber) {
+    public String approveCapsule(String ID, int projectNumber) {
         String msg = "\nThere was an error approving the capsule\n";
-        // Iterate in all the phases of the project
-        if (projects[projectNumber].findCapsuleByID(ID)) {
+        if (projects[projectNumber].approveCapsule(ID)) {
             msg = "\nCapsule approved correctly\n";
         }
         return msg;
+    }
+
+    public String publishCapsule(String ID, int projectNumber) {
+        String URL = projects[projectNumber].publishCapsule(ID);
+        return URL;
     }
 
     public int getFirtsValidPosition() {
