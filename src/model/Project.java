@@ -121,8 +121,9 @@ public class Project {
     public boolean addCapsule(String capsuleType, String description, int employeeNumber,
             String learnings) {
         boolean added = false;
-        if (hasHashWords(learnings) && hasHashWords(description)) {
-            String ID = "CC" + this.projectName + getCurrentPhase(0).getPhaseType()
+        if (hasHashWords(learnings) && hasHashWords(description)
+                && (getCurrentPhase(0).getCapsules().length != getCurrentPhase(0).getFirtsValidCapsule())) {
+            String ID = "CC" + this.projectName.replace(" ", "_") + getCurrentPhase(0).getPhaseType()
                     + String.valueOf(getCurrentPhase(0).getFirtsValidCapsule());
             Capsule capsule = new Capsule(ID, description, capsuleType, learnings, employee[employeeNumber]);
             employee[employeeNumber].addCapsule(capsule);
@@ -170,9 +171,9 @@ public class Project {
         boolean found = false;
         String URL = "";
         for (int i = 0; i < phase.length && !found; i++) {
-            if (phase[i].getFirtsValidCapsule() > 0) {
+            URL = phase[i].publishCapsule(ID);
+            if (!URL.equals("")) {
                 found = true;
-                URL = phase[i].publishCapsule(ID);
             }
         }
         return URL;

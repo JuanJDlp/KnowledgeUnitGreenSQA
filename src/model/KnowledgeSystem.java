@@ -7,7 +7,7 @@ public class KnowledgeSystem {
     private Project[] projects;
 
     public KnowledgeSystem() {
-        this.SIZEPROJECTS = 10;
+        this.SIZEPROJECTS = 3;
         this.projects = new Project[SIZEPROJECTS];
     }
 
@@ -20,8 +20,8 @@ public class KnowledgeSystem {
     }
 
     // Adds a manager to a project based on its position.
-    public void addManager(String name, String phone) {
-        projects[getFirtsValidPosition() - 1].addManager(name, phone);
+    public void addManager(String name, String phone, int projectNumber) {
+        projects[projectNumber].addManager(name, phone);
     }
 
     public Employee[] employeesInAProject(int projectNumber) {
@@ -31,11 +31,12 @@ public class KnowledgeSystem {
     public void addProject(String projectName, String clientName, double projectBudge) {
 
         Calendar startPlannedDate = Calendar.getInstance();
+        int projectPositionInArray = getFirtsValidPosition();
 
-        projects[getFirtsValidPosition()] = new Project(projectName, clientName, startPlannedDate, projectBudge);
+        projects[projectPositionInArray] = new Project(projectName, clientName, startPlannedDate, projectBudge);
         // Set the first phase real starting date and planned date.
-        projects[getFirtsValidPosition() - 1].getPhase()[0].setRealStartingDate(startPlannedDate);
-        projects[getFirtsValidPosition() - 1].getPhase()[0].setStartPlannedDate(startPlannedDate);
+        projects[projectPositionInArray].getPhase()[0].setRealStartingDate(startPlannedDate);
+        projects[projectPositionInArray].getPhase()[0].setStartPlannedDate(startPlannedDate);
     }
 
     public int findProject(String name) {
@@ -50,8 +51,9 @@ public class KnowledgeSystem {
         return position;
     }
 
-    public void initProjectPhases(Calendar actualDate, int phaseIndex, int amountMonthsBetweenProjects) {
-        Project currenProject = getprojects()[getFirtsValidPosition() - 1];
+    public void initProjectPhases(Calendar actualDate, int phaseIndex, int amountMonthsBetweenProjects,
+            int projectNumber) {
+        Project currenProject = getprojects()[projectNumber];
         currenProject.initProjectPhases(actualDate, phaseIndex, amountMonthsBetweenProjects);
     }
 
@@ -61,7 +63,7 @@ public class KnowledgeSystem {
 
     public String addCapsule(int projectNumber, String capsuleType, String description, int employeeNumber,
             String learnings) {
-        String msj = "\nFATAL: There needs to be hastags in the learnings and in the description.\n";
+        String msj = "\nFATAL: There needs to be hastags in the learnings and in the description. OR\n you reached the maximum capsules available {50}";
         if (projects[projectNumber].addCapsule(capsuleType, description, employeeNumber, learnings)) {
             msj = "\nCapsule created succesfully created \n\n"
                     + projects[projectNumber].getCurrentPhase(0)
@@ -98,6 +100,7 @@ public class KnowledgeSystem {
                 pos = i;
             }
         }
-        return pos;
+        return pos = (pos == -1) ? getprojects().length
+                : pos;
     }
 }

@@ -38,7 +38,7 @@ class Main {
         switch (option) {
 
             case 1:
-                if (driver.getFirtsValidPosition() == -2) {
+                if (driver.getFirtsValidPosition() == driver.getprojects().length) {
                     System.out.println("You can't craete more projects, the projects are full.");
                 } else {
                     createProject();
@@ -138,6 +138,7 @@ class Main {
     }
 
     public void createProject() {
+        int projectNumber = driver.getFirtsValidPosition();
         System.out.println("\n\n\tCREATING A PROJECT\n");
 
         System.out.print("Project's name: ");
@@ -168,16 +169,16 @@ class Main {
         for (int i = 0; i < 6; i++) {
             do {
                 System.out.print("Duration in months of '"
-                        + driver.getprojects()[driver.getFirtsValidPosition() - 1].getPhase()[i].getPhaseType()
+                        + driver.getprojects()[projectNumber].getPhase()[i].getPhaseType()
                         + "' : ");
                 months = validateIntegerInput();
             } while (months < 0);
-            driver.initProjectPhases(actualDate, i, months);
+            driver.initProjectPhases(actualDate, i, months, projectNumber);
 
         }
 
-        driver.getprojects()[driver.getFirtsValidPosition() - 1].getPhase()[5].setendingPlannedDate(actualDate);
-        driver.getprojects()[driver.getFirtsValidPosition() - 1].setEndingDate(actualDate);
+        driver.getprojects()[projectNumber].getPhase()[5].setendingPlannedDate(actualDate);
+        driver.getprojects()[projectNumber].setEndingDate(actualDate);
         int amountOfManagers = -1;
         do {
             System.out.print("\nHow many managers are you going to introduce?: ");
@@ -191,11 +192,11 @@ class Main {
             String managerName = input.nextLine();
             System.out.println("Manager's phone: ");
             String managersPhone = input.nextLine();
-            driver.addManager(managerName, managersPhone);
+            driver.addManager(managerName, managersPhone, projectNumber);
             System.out.println("\n");
         }
 
-        System.out.println("\n\tThe project was crated succesfully \n");
+        System.out.println("\n\tThe project was created succesfully \n");
 
         showProjects();
         System.out.println("\n");
@@ -203,6 +204,7 @@ class Main {
 
     public void endPhase() {
         int projectNumber = -2;
+
         System.out.println("\t Wich project do you want to end their phase? :");
 
         do {
@@ -324,6 +326,7 @@ class Main {
     }
 
     public void showProjects() {
+
         for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
             System.out.println((i + 1) + ": " + driver.getprojects()[i]);
         }
@@ -347,8 +350,13 @@ class Main {
         System.out.println("\nInsert the ID of the capsule you want to PUBLISH: ");
         input.nextLine();
         String ID = input.nextLine();
-        System.out.println("\nCapsule was approved succesfully, it's HTML FILE its in the capsulesHTML folder \n"
-                + "URL: " + driver.publishCapsule(ID, ProjectNumber));
+        if (!driver.publishCapsule(ID, ProjectNumber).equalsIgnoreCase("")) {
+            System.out.println("\nCapsule was approved succesfully, it's HTML FILE its in the capsulesHTML folder \n"
+                    + "URL: " + driver.publishCapsule(ID, ProjectNumber));
+        } else {
+            System.out.println("FALTAL: there was an error publishing the capsule");
+        }
+
     }
 
     public void showProjectStatus() {

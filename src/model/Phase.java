@@ -18,7 +18,7 @@ public class Phase {
         this.sdf = new SimpleDateFormat("dd/MMM/yyyy");
         this.phaseType = phaseType;
         this.active = active;
-        this.CAPSULESIZE = 50;
+        this.CAPSULESIZE = 2;
         this.capsules = new Capsule[CAPSULESIZE];
     }
 
@@ -75,7 +75,7 @@ public class Phase {
                 pos = i;
             }
         }
-        return pos;
+        return pos = (pos == capsules.length * -1) ? capsules.length : pos;
     }
 
     public Capsule findCapsule(String ID) {
@@ -105,10 +105,13 @@ public class Phase {
     }
 
     public String publishCapsule(String ID) {
-        String URL = "FATAL: couldn't publish the capsule, maybe it is not approved or the capsules was alredy published.";
+        String URL = "";
         Capsule currentIDCapsule = findCapsule(ID);
-        if (currentIDCapsule.getApproved() && currentIDCapsule.createCapsuleHTML()) {
-            URL = currentIDCapsule.createCapsuleURL();
+        if (currentIDCapsule != null) {
+            if (currentIDCapsule.getApproved()) {
+                URL = currentIDCapsule.createCapsuleURL();
+                currentIDCapsule.createCapsuleHTML();
+            }
         }
 
         return URL;

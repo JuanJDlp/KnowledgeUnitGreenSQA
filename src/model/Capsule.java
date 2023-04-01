@@ -82,8 +82,7 @@ public class Capsule {
         return url;
     }
 
-    public boolean createCapsuleHTML() {
-        boolean htmlISCreated = false;
+    public void createCapsuleHTML() {
         try {
             // Create the file if it does not exist
             File directory = new File("capsulesHTML");
@@ -116,9 +115,8 @@ public class Capsule {
             writer.close();
 
         } catch (IOException e) {
-            htmlISCreated = false;
+            e.printStackTrace();
         }
-        return htmlISCreated;
     }
 
     @Override
