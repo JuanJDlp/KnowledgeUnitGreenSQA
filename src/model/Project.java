@@ -15,7 +15,7 @@ public class Project {
     private double projectBudget;
     private ArrayList<Employee> managers;
     private Phase[] phase;
-    private Employee[] employee;
+    private Employee[] employees;
 
     public Project(String projecName, String clientName, Calendar startDate, double projectBudget) {
         this.sdf = new SimpleDateFormat("dd/MMM/yyyy");
@@ -25,7 +25,7 @@ public class Project {
         this.startDate = startDate;
         this.projectBudget = projectBudget;
 
-        this.employee = new Employee[] {
+        this.employees = new Employee[] {
                 new Employee("Vanessa", "COLLABORATOR"),
                 new Employee("Rony", "COLLABORATOR"),
                 new Employee("Mariana", "COLLABORATOR"),
@@ -73,8 +73,8 @@ public class Project {
         return startDate;
     }
 
-    public Employee[] getEmployee() {
-        return employee;
+    public Employee[] getEmployees() {
+        return employees;
     }
 
     // Methods--------------------
@@ -118,15 +118,26 @@ public class Project {
 
     }
 
+    public String[] employeesInAProject() {
+        String[] employeesString = new String[employees.length];
+        for (int i = 0; i < employees.length; i++) {
+            employeesString[i] = employees.toString();
+        }
+        return employeesString;
+    }
+
     public boolean addCapsule(String capsuleType, String description, int employeeNumber,
             String learnings) {
         boolean added = false;
-        if (hasHashWords(learnings) && hasHashWords(description)
-                && (getCurrentPhase(0).getCapsules().length != getCurrentPhase(0).getFirtsValidCapsule())) {
-            String ID = "CC" + this.projectName.replace(" ", "_") + getCurrentPhase(0).getPhaseType()
-                    + String.valueOf(getCurrentPhase(0).getFirtsValidCapsule());
-            Capsule capsule = new Capsule(ID, description, capsuleType, learnings, employee[employeeNumber]);
-            employee[employeeNumber].addCapsule(capsule);
+        if (hasHashWords(learnings) && hasHashWords(description)) {
+            String ID = "CC" +
+                    this.projectName.replace(" ", "_") +
+                    getCurrentPhase(0).getPhaseType() +
+                    String.valueOf(getCurrentPhase(0).getFirtsValidCapsule());
+
+            Capsule capsule = new Capsule(ID, description, capsuleType, learnings, employees[employeeNumber]);
+
+            employees[employeeNumber].addCapsule(capsule);
             getCurrentPhase(0).addCapsule(capsule);
             added = true; // Flag
         }

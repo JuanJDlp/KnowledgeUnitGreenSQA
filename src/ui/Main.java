@@ -9,6 +9,7 @@ class Main {
     private Scanner input;
     KnowledgeSystem driver;
 
+    // Constructor
     public Main() {
         input = new Scanner(System.in);
         driver = new KnowledgeSystem();
@@ -82,6 +83,14 @@ class Main {
 
     }
 
+    /**
+     * 
+     * Shows a menu with options related to project and capsule management, and
+     * information retrieval.
+     * 
+     * @return the selected option by the user that will be later used in the method
+     *         executeOption
+     */
     public int menu() {
         int option = 0;
         do {
@@ -113,6 +122,14 @@ class Main {
         return option;
     }
 
+    /**
+     * 
+     * Validates the input from the user to make sure it is an integer.
+     * If what the user is not an integer input it will display a message and the
+     * option will be -1
+     * 
+     * @return an integer input from the user
+     */
     public int validateIntegerInput() {
         int option = 0;
         if (input.hasNextInt()) {
@@ -125,6 +142,14 @@ class Main {
         return option;
     }
 
+    /**
+     * 
+     * Validates the input from the user to make sure it is a double.
+     * If what the user is not a daouble input it will display a message and the
+     * option will be -1
+     * 
+     * @return a double input from the user
+     */
     public double validatedoubleInput() {
         double option = 0;
         if (input.hasNextDouble()) {
@@ -137,6 +162,18 @@ class Main {
         return option;
     }
 
+    /**
+     * 
+     * This method allows the user to create a project. The user inputs
+     * - the name of the project,
+     * -the client's name,
+     * -the budget,
+     * -the duration of each phase in months,
+     * -the managers in charge of the project.
+     * 
+     * The method validates the inputs and adds the project to the system. calling
+     * the driver.
+     */
     public void createProject() {
         int projectNumber = driver.getFirtsValidPosition();
         System.out.println("\n\n\tCREATING A PROJECT\n");
@@ -202,6 +239,23 @@ class Main {
         System.out.println("\n");
     }
 
+    /**
+     * 
+     * Allows to end the current phase of a project, after displaying the current
+     * phase information and
+     * asking for confirmation.
+     * <p>
+     * It asks the user which project they want to end their phase by displaying a
+     * list of all active projects.
+     * 
+     * If the selected project has no active phases, it informs the user that the
+     * project has already ended.
+     * 
+     * If the selected project has an active phase, it displays the current phase
+     * information and asks the user
+     * for confirmation to end it.
+     * </p>
+     */
     public void endPhase() {
         int projectNumber = -2;
 
@@ -250,6 +304,24 @@ class Main {
 
     }
 
+    /**
+     * 
+     * Allows the user to write a new capsule for a project.
+     * The method displays the list of active projects, then prompts the user to
+     * select a project.
+     * 
+     * After the user selects a project, the method displays a list of employees
+     * working on that project,
+     * 
+     * then prompts the user to select an employee.
+     * The user is then asked to write a short description of the capsule and to
+     * choose a capsule type (TECHNIQUE, MANAGEMENT, DOMAIN or EXPERIENCES).
+     * 
+     * Finally, the user is asked to write their learnings, and the method adds
+     * the new capsule to the project.
+     * 
+     * If the project has already ended, it is not possible to add a new capsule.
+     */
     public void addCapsule() {
         String capsuleType = "";
         int Typeoption = -1;
@@ -263,8 +335,7 @@ class Main {
 
             System.out.println("\nChoose an employee profile.\n");
             for (int i = 0; i < driver.employeesInAProject(projectNumber).length; i++) {
-                System.out.println(
-                        (i + 1) + ": " + driver.employeesInAProject(projectNumber)[i].toString() + "\n");
+                System.out.println(driver.employeesInAProject(projectNumber)[i]);
             }
             do {
                 employee = validateIntegerInput() - 1;
@@ -307,6 +378,14 @@ class Main {
 
     }
 
+    /**
+     * 
+     * Allows a the user to approve a specific capsule from a project that is
+     * currently in review.
+     * Shows the list of capsules for each phase of the project and prompts the
+     * user to input the ID of the
+     * capsule they want to approve.
+     */
     public void approveACapsule() {
         int ProjectNumber = -1;
         showProjectStatus();
@@ -325,6 +404,9 @@ class Main {
         System.out.println(driver.approveCapsule(ID, ProjectNumber));
     }
 
+    /**
+     * It displays all the projects ifnromation
+     */
     public void showProjects() {
 
         for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
@@ -332,6 +414,19 @@ class Main {
         }
     }
 
+    /**
+     * 
+     * Displays a list of projects and prompts the user to select a project to
+     * publish a capsule to.
+     * 
+     * Displays a list of approved capsules in the selected project and prompts the
+     * user to select a capsule to publish.
+     * 
+     * Publishes the selected capsule by generating an HTML file and returns the URL
+     * of the published capsule.
+     * 
+     * If there was an error publishing the capsule, an error message is displayed.
+     */
     public void publishCapsule() {
         int ProjectNumber = -1;
         showProjectStatus();
@@ -359,6 +454,13 @@ class Main {
 
     }
 
+    /**
+     * 
+     * Displays the current status of all projects by iterating over the
+     * projects array and printing their name and current phase,
+     * If the project has endend, the current phase will be changed for a message
+     * indicating that the project has ended.
+     */
     public void showProjectStatus() {
         for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
             if (driver.getprojects()[i].getCurrentPhase(0) != null) {

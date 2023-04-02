@@ -62,8 +62,18 @@ public class Phase {
 
     // Methods-----
 
+    public boolean isThereRoomForAnotherCapsule() {
+        boolean isThereRoomForAnotherCapsule = false;
+        if (capsules.length != getFirtsValidCapsule()) {
+            isThereRoomForAnotherCapsule = true;
+        }
+        return isThereRoomForAnotherCapsule;
+    }
+
     public void addCapsule(Capsule capsule) {
-        capsules[getFirtsValidCapsule()] = capsule;
+        if (isThereRoomForAnotherCapsule()) {
+            capsules[getFirtsValidCapsule()] = capsule;
+        }
     }
 
     public int getFirtsValidCapsule() {
