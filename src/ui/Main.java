@@ -262,11 +262,11 @@ class Main {
             System.out.println("\n");
             // Printing all the projects name's
             showProjectStatus();
-            System.out.println("\n-1 : to exit the menu");
+            System.out.println("\n-0 : to exit the menu");
             // Picking a project
             projectNumber = validateIntegerInput() - 1;
         } while ((projectNumber < 0
-                || projectNumber > driver.getFirtsValidPosition()) && projectNumber != -1);
+                || projectNumber > driver.getFirtsValidPosition() - 1) && projectNumber != -1);
 
         if (projectNumber >= 0) {
             if (driver.hasAProjectEndend(projectNumber)) {
@@ -321,10 +321,16 @@ class Main {
         String capsuleType = "";
         int Typeoption = -1;
         int employee = -1;
+        int projectNumber = -1;
 
         System.out.println("Which project would you like to write a capsule to?: \n");
-        showProjectStatus();
-        int projectNumber = validateIntegerInput() - 1;
+        do {
+            System.out.println("\n");
+            // Printing all the projects name's
+            showProjectStatus();
+            projectNumber = validateIntegerInput() - 1;
+        } while ((projectNumber < 0
+                || projectNumber > driver.getFirtsValidPosition() - 1));
 
         if (!driver.hasAProjectEndend(projectNumber)) {
 
@@ -334,7 +340,7 @@ class Main {
             }
             do {
                 employee = validateIntegerInput() - 1;
-            } while (employee < 0 || employee > driver.employeesInAProject(projectNumber).length);
+            } while (employee < 0 || employee > driver.employeesInAProject(projectNumber).length - 1);
 
             System.out.println("\nWrite a short description of the capsule: ");
             input.nextLine();
@@ -382,21 +388,27 @@ class Main {
      * capsule they want to approve.
      */
     public void approveACapsule() {
-        int ProjectNumber = -1;
-        showProjectStatus();
-        ProjectNumber = input.nextInt() - 1;
-        for (int i = 0; i < driver.getprojects()[ProjectNumber].getPhase().length; i++) {
+        int projectNumber = -1;
+        do {
+            System.out.println("\n");
+            // Printing all the projects name's
+            showProjectStatus();
+            // Picking a project
+            projectNumber = validateIntegerInput() - 1;
+        } while ((projectNumber < 0
+                || projectNumber > driver.getFirtsValidPosition() - 1));
+        for (int i = 0; i < driver.getprojects()[projectNumber].getPhase().length; i++) {
 
-            System.out.println("\n" + driver.getprojects()[ProjectNumber].getPhase()[i].getPhaseType() + "\n");
+            System.out.println("\n" + driver.getprojects()[projectNumber].getPhase()[i].getPhaseType() + "\n");
 
-            for (int j = 0; j < driver.getprojects()[ProjectNumber].getPhase()[i].getFirtsValidCapsule(); j++) {
-                System.out.println(driver.getprojects()[ProjectNumber].getPhase()[i].getCapsules()[j]);
+            for (int j = 0; j < driver.getprojects()[projectNumber].getPhase()[i].getFirtsValidCapsule(); j++) {
+                System.out.println(driver.getprojects()[projectNumber].getPhase()[i].getCapsules()[j]);
             }
         }
         System.out.println("\nInsert the ID of the capsule you want to APPROVE:  ");
         input.nextLine();
         String ID = input.nextLine();
-        System.out.println(driver.approveCapsule(ID, ProjectNumber));
+        System.out.println(driver.approveCapsule(ID.trim(), projectNumber));
     }
 
     /**
@@ -423,24 +435,30 @@ class Main {
      * If there was an error publishing the capsule, an error message is displayed.
      */
     public void publishCapsule() {
-        int ProjectNumber = -1;
-        showProjectStatus();
-        ProjectNumber = input.nextInt() - 1;
+        int projectNumber = -1;
+        do {
+            System.out.println("\n");
+            // Printing all the projects name's
+            showProjectStatus();
+            // Picking a project
+            projectNumber = validateIntegerInput() - 1;
+        } while ((projectNumber < 0
+                || projectNumber > driver.getFirtsValidPosition() - 1));
 
-        for (int i = 0; i < driver.getprojects()[ProjectNumber].getPhase().length; i++) {
+        for (int i = 0; i < driver.getprojects()[projectNumber].getPhase().length; i++) {
 
-            System.out.println("\n" + driver.getprojects()[ProjectNumber].getPhase()[i].getPhaseType() + "\n");
+            System.out.println("\n" + driver.getprojects()[projectNumber].getPhase()[i].getPhaseType() + "\n");
 
-            for (int j = 0; j < driver.getprojects()[ProjectNumber].getPhase()[i].getFirtsValidCapsule(); j++) {
-                if (driver.isACapsuleApproved(ProjectNumber, i, j)) {
-                    System.out.println(driver.getprojects()[ProjectNumber].getPhase()[i].getCapsules()[j]);
+            for (int j = 0; j < driver.getprojects()[projectNumber].getPhase()[i].getFirtsValidCapsule(); j++) {
+                if (driver.isACapsuleApproved(projectNumber, i, j)) {
+                    System.out.println(driver.getprojects()[projectNumber].getPhase()[i].getCapsules()[j]);
                 }
             }
         }
         System.out.println("\nInsert the ID of the capsule you want to PUBLISH: ");
         input.nextLine();
         String ID = input.nextLine();
-        System.out.println(driver.publishCapsule(ID, ProjectNumber));
+        System.out.println(driver.publishCapsule(ID.trim(), projectNumber));
 
     }
 
