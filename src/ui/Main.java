@@ -77,6 +77,9 @@ class Main {
                     System.out.println("\nThere is no current projects.\n");
                 }
                 break;
+            case 6:
+                capsulesRegisteredByType();
+                break;
             default:
                 System.out.println("Option not recognized.");
         }
@@ -479,6 +482,51 @@ class Main {
                         + " | " + "THE PROJECT HAS ENDEND");
             }
         }
+    }
+
+    /**
+     * The functions receives the type of capsules that the user wants to get the
+     * amount of capsules registered with it
+     * and displays the amount.
+     */
+    public void capsulesRegisteredByType() {
+        String capsuleType = "";
+        int Typeoption = -1;
+        int projectNumber = -1;
+        do {
+            System.out.println("\n");
+            // Printing all the projects name's
+            showProjectStatus();
+            // Picking a project
+            projectNumber = validateIntegerInput() - 1;
+        } while ((projectNumber < 0
+                || projectNumber > driver.getFirtsValidPosition() - 1));
+
+        System.out.println("\nPlease select a type: " +
+                "\n1.-TECHNIQUE " +
+                "\n2.-MANAGMENT" +
+                "\n3.-DOMAIN" +
+                "\n4.-EXPERIENCES");
+        do {
+            Typeoption = validateIntegerInput();
+        } while (Typeoption < 1 || Typeoption > 4);
+        switch (Typeoption) {
+            case 1:
+                capsuleType = "TECHNIQUE";
+                break;
+            case 2:
+                capsuleType = "MANAGMENT";
+                break;
+            case 3:
+                capsuleType = "DOMAIN";
+                break;
+            case 4:
+                capsuleType = "EXPERIENCES";
+                break;
+        }
+        System.out.println(
+                "There is " + driver.amountCapsulesByType(projectNumber, capsuleType)
+                        + " capsules registered with that type.");
     }
 
 }

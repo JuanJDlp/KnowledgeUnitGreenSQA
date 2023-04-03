@@ -182,6 +182,16 @@ public class Phase {
         return URL;
     }
 
+    public int amountCapsulesByType(String capsuleType) {
+        int counter = 0;
+        for (int i = 0; i < getFirtsValidCapsule(); i++) {
+            if (capsules[i].getCapsuleType().equalsIgnoreCase(capsuleType)) {
+                counter++;
+            }
+        }
+        return counter;
+    }
+
     @Override
     public String toString() {
         String result = "Phase: " + this.phaseType +

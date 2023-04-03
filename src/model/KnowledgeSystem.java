@@ -294,4 +294,8 @@ public class KnowledgeSystem {
         return pos = (pos == -1) ? getprojects().length
                 : pos;
     }
+
+    public int amountCapsulesByType(int projectIndex, String capsuleType) {
+        return projects[projectIndex].amountCapsulesByType(capsuleType);
+    }
 }

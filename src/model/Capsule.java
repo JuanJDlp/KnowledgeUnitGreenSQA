@@ -74,6 +74,14 @@ public class Capsule {
         return this.published;
     }
 
+    public String getCapsuleType() {
+        return capsuleType;
+    }
+
+    public void setCapsuleType(String capsuleType) {
+        this.capsuleType = capsuleType;
+    }
+
     public ArrayList<String> getHastags() {
         return hastags;
     }

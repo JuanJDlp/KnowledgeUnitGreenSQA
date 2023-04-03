@@ -276,6 +276,14 @@ public class Project {
         return URL;
     }
 
+    public int amountCapsulesByType(String capsuleType) {
+        int counter = 0;
+        for (int i = 0; i < phase.length; i++) {
+            counter += phase[i].amountCapsulesByType(capsuleType);
+        }
+        return counter;
+    }
+
     @Override
     public String toString() {
         return "Project's name: " + this.projectName +
