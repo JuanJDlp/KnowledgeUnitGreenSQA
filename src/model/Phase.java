@@ -18,7 +18,7 @@ public class Phase {
         this.sdf = new SimpleDateFormat("dd/MMM/yyyy");
         this.phaseType = phaseType;
         this.active = active;
-        this.CAPSULESIZE = 1;
+        this.CAPSULESIZE = 50;
         this.capsules = new Capsule[CAPSULESIZE];
     }
 
@@ -79,6 +79,11 @@ public class Phase {
                 getCapsules()[getFirtsValidCapsule() - 1].getHastags();
     }
 
+    /**
+     * Checks if there is room for another capsule in the current phase.
+     * 
+     * @return true if there is room for another capsule, false otherwise.
+     */
     public boolean isThereRoomForAnotherCapsule() {
         boolean isThereRoomForAnotherCapsule = false;
         if (capsules.length != getFirtsValidCapsule()) {
@@ -87,12 +92,24 @@ public class Phase {
         return isThereRoomForAnotherCapsule;
     }
 
+    /**
+     * Adds a capsule to the capsules array if there is room.
+     * 
+     * @param capsule The capsule to add.
+     */
     public void addCapsule(Capsule capsule) {
         if (isThereRoomForAnotherCapsule()) {
             capsules[getFirtsValidCapsule()] = capsule;
         }
     }
 
+    /**
+     * Returns the index of the first valid capsule. If there is not space for more
+     * capsules
+     * it will return the lenght of the capsules array times -1.
+     * 
+     * @return The index of the first valid capsule.
+     */
     public int getFirtsValidCapsule() {
         boolean isFound = false; // flag
         int pos = capsules.length * -1;
@@ -105,6 +122,13 @@ public class Phase {
         return pos = (pos == capsules.length * -1) ? capsules.length : pos;
     }
 
+    /**
+     * Finds the capsule with the specified ID.
+     * 
+     * @param ID The ID of the capsule to find.
+     * @return The capsule with the specified ID, or null if no capsule with that ID
+     *         is found.
+     */
     public Capsule findCapsule(String ID) {
         boolean found = false;
         Capsule capsule = null;
@@ -117,6 +141,12 @@ public class Phase {
         return capsule;
     }
 
+    /**
+     * Approves the capsule with the specified ID.
+     * 
+     * @param ID The ID of the capsule to approve.
+     * @return true if the capsule was approved, false otherwise.
+     */
     public boolean approveCapsule(String ID) {
         boolean isApproved = false;
         Capsule currentIDCapsule = findCapsule(ID);
@@ -131,6 +161,13 @@ public class Phase {
         return isApproved;
     }
 
+    /**
+     * Publishes the capsule with the specified ID.
+     * 
+     * @param ID The ID of the capsule to publish.
+     * @return The URL of the published capsule, or an empty string if the capsule
+     *         could not be published.
+     */
     public String publishCapsule(String ID) {
         String URL = "";
         Capsule currentIDCapsule = findCapsule(ID);

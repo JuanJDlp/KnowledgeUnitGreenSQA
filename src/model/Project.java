@@ -78,10 +78,26 @@ public class Project {
 
     // Methods--------------------
 
+    /**
+     * 
+     * Adds a manager to the project with the specified name and phone number.
+     * 
+     * @param name  the name of the manager.
+     * @param phone the phone number of the manager.
+     */
     public void addManager(String name, String phone) {
         managers.add(new Employee(name, phone, "MANAGER"));
     }
 
+    /**
+     * 
+     * Initializes the project phases with the specified parameters.
+     * 
+     * @param actualDate                  the current date for the project.
+     * @param phaseIndex                  the index of the current phase.
+     * @param amountMonthsBetweenProjects the amount of months between each project
+     *                                    phase.
+     */
     public void initProjectPhases(Calendar actualDate, int phaseIndex, int amountMonthsBetweenProjects) {
 
         actualDate.add(Calendar.MONTH, amountMonthsBetweenProjects);
@@ -96,12 +112,16 @@ public class Project {
 
     }
 
+    /**
+     * 
+     * Ends the current project phase and starts the next one.
+     */
     public void endPhase() {
 
         Calendar actualTime = Calendar.getInstance();
 
         Phase currentPhase = getCurrentPhase(0);
-
+        // validates if it is the last phase or if there are no more phases to end.
         if (currentPhase != null && currentPhase != phase[5]) {
             Phase nextPhase = getCurrentPhase(1);
 
@@ -117,6 +137,16 @@ public class Project {
 
     }
 
+    /**
+     * 
+     * Returns an array of strings representing the employees involved in the
+     * project.
+     * Each element of the array corresponds to the string representation of an
+     * Employee object.
+     * 
+     * @return an array of strings representing the employees involved in the
+     *         project
+     */
     public String[] employeesInAProject() {
         String[] employeesString = new String[employees.length];
         for (int i = 0; i < employees.length; i++) {
@@ -125,6 +155,16 @@ public class Project {
         return employeesString;
     }
 
+    /**
+     * Adds a new capsule to the project.
+     * 
+     * @param capsuleType    the type of the capsule being added.
+     * @param description    the description of the capsule being added.
+     * @param employeeNumber the number of the employee that created the capsule.
+     * @param learnings      the learnings associated with the capsule being added.
+     * @return a boolean value indicating whether or not the capsule was
+     *         successfully added.
+     */
     public boolean addCapsule(String capsuleType, String description, int employeeNumber,
             String learnings) {
         boolean added = false;
@@ -143,6 +183,15 @@ public class Project {
         return added;
     }
 
+    /**
+     * Returns the current phase of the project. The user can pick which phase from
+     * the actual one he wants to get
+     * if the this param is 0, the method will return the current phase.
+     * 
+     * @param PositionsToMoveToGetTheNextPhase the number of positions to move to
+     *                                         get the next phase. if its needed.
+     * @return the current phase of the project.
+     */
     public Phase getCurrentPhase(int PositoinsToMoveToGetTheNextPhase) {
         Phase currentStage = null;
         boolean found = false;
@@ -160,6 +209,13 @@ public class Project {
         return currentStage;
     }
 
+    /**
+     * Approves a capsule in the project.
+     * 
+     * @param ID the ID of the capsule being approved.
+     * @return a boolean value indicating whether or not the capsule was
+     *         successfully approved.
+     */
     public boolean approveCapsule(String ID) {
         boolean found = false;
         for (int i = 0; i < phase.length && !found; i++) {
@@ -170,6 +226,12 @@ public class Project {
         return found;
     }
 
+    /**
+     * Publishes a capsule in the project.
+     * 
+     * @param ID the ID of the capsule being published.
+     * @return the URL of the capsule that was published.
+     */
     public String publishCapsule(String ID) {
         boolean found = false;
         String URL = "";

@@ -69,6 +69,14 @@ public class Capsule {
     }
 
     // -----METHODS-----
+    /**
+     * 
+     * Adds hashtags from given text to the list of hashtags in the capsule.
+     * Hashtags must be in the format #hashtag#, and will be extracted and added
+     * without the # characters.
+     * 
+     * @param text the text to extract hashtags from
+     */
     public void addHasTags(String text) {
         Pattern p = Pattern.compile("#([^#]+)#");
         Matcher m = p.matcher(text);
@@ -77,11 +85,24 @@ public class Capsule {
         }
     }
 
+    /**
+     * 
+     * Creates the URL for the capsule using the capsule's ID.
+     * 
+     * @return the URL for the capsule
+     */
     public String createCapsuleURL() {
         String url = "https://greensqa.com/en/capsuless/" + this.ID;
         return url;
     }
 
+    /**
+     * 
+     * Creates an HTML file for the capsule containing all the information about it.
+     * 
+     * The file will be saved in a "capsulesHTML" directory in the project
+     * directory.
+     */
     public void createCapsuleHTML() {
         try {
             // Create the file if it does not exist

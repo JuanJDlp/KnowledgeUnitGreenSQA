@@ -24,6 +24,12 @@ public class Employee {
         return capsules;
     }
 
+    /**
+     * Adds the corresponding capsule that the employee created to the capsules
+     * arraylist.
+     * 
+     * @param capsule the capsule to add
+     */
     public void addCapsule(Capsule capsule) {
         capsules.add(capsule);
     }

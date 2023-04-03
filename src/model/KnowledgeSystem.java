@@ -9,7 +9,7 @@ public class KnowledgeSystem {
     private Project[] projects;
 
     public KnowledgeSystem() {
-        this.SIZEPROJECTS = 2;
+        this.SIZEPROJECTS = 10;
         this.projects = new Project[SIZEPROJECTS];
     }
 
