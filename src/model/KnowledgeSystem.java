@@ -1,13 +1,15 @@
 package model;
 
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class KnowledgeSystem {
     private final int SIZEPROJECTS;
     private Project[] projects;
 
     public KnowledgeSystem() {
-        this.SIZEPROJECTS = 3;
+        this.SIZEPROJECTS = 2;
         this.projects = new Project[SIZEPROJECTS];
     }
 
@@ -122,19 +124,51 @@ public class KnowledgeSystem {
      */
     public String addCapsule(int projectNumber, String capsuleType, String description, int employeeNumber,
             String learnings) {
-        String msj = "\nFATAL: There needs to be hastags in the learnings and in the description. OR\n you reached the maximum capsules available {50}";
-        if (projects[projectNumber].addCapsule(capsuleType, description, employeeNumber, learnings)) {
-            msj = "\nCapsule created succesfully created \n\n"
-                    + projects[projectNumber].getCurrentPhase(0)
-                            .getCapsules()[projects[projectNumber].getCurrentPhase(0).getFirtsValidCapsule() - 1]
+        String msg = "\nFATAL: There needs to be hastags in the learnings and in the description.";
+        if (hasHashWords(description) && hasHashWords(learnings)) {
+            // Checks if there is room for another capsules.
+            if (projects[projectNumber].addCapsule(capsuleType, description, employeeNumber, learnings)) {
+                // ITs the to sting of the capsule
+                msg = "\nCapsule created succesfully created \n\n"
+                        + getCapsulesInfo(projectNumber);
 
-                    + "\n" +
+            } else {
+                msg = "\nYou have reached the maximum amount of capsules.\n";
+            }
 
-                    projects[projectNumber].getCurrentPhase(0)
-                            .getCapsules()[projects[projectNumber].getCurrentPhase(0).getFirtsValidCapsule() - 1]
-                            .getHastags();
         }
-        return msj;
+        return msg;
+    }
+
+    /**
+     * 
+     * Returns information about the first valid capsule in the current phase of the
+     * given project, including its description
+     * and hashtags.
+     * 
+     * @param projectNumber the index of the project to get the capsule information
+     *                      from
+     * @return a string with the description and hashtags of the first valid capsule
+     *         in the current phase of the project
+     * @throws ArrayIndexOutOfBoundsException if the project number is invalid
+     */
+    public String getCapsulesInfo(int projectNumber) {
+        return projects[projectNumber].getCurrentPhase(0).getCapsulesInfo();
+    }
+
+    /**
+     * 
+     * Checks if a given text contains at least one hashtag word.
+     * 
+     * @param text the text to check for hashtags
+     * 
+     * @return true if the text contains at least one hashtag word, false otherwise
+     */
+    public boolean hasHashWords(String text) {
+        Pattern p = Pattern.compile("#([^#]+)#"); // Modify the regex to match the pattern between '#' characters
+        Matcher m = p.matcher(text);
+
+        return m.find();
     }
 
     /**

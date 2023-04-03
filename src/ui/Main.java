@@ -335,7 +335,7 @@ class Main {
 
             System.out.println("\nChoose an employee profile.\n");
             for (int i = 0; i < driver.employeesInAProject(projectNumber).length; i++) {
-                System.out.println(driver.employeesInAProject(projectNumber)[i]);
+                System.out.println((i + 1) + ": " + driver.employeesInAProject(projectNumber)[i] + "\n");
             }
             do {
                 employee = validateIntegerInput() - 1;

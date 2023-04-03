@@ -18,7 +18,7 @@ public class Phase {
         this.sdf = new SimpleDateFormat("dd/MMM/yyyy");
         this.phaseType = phaseType;
         this.active = active;
-        this.CAPSULESIZE = 2;
+        this.CAPSULESIZE = 1;
         this.capsules = new Capsule[CAPSULESIZE];
     }
 
@@ -61,6 +61,23 @@ public class Phase {
     }
 
     // Methods-----
+
+    /**
+     * 
+     * Returns information about the capsules in the current phase of the project.
+     * This method concatenates the details of the first valid capsule in the phase,
+     * along with its hashtags, into a single string and returns it.
+     * 
+     * @return A string containing the details of the first valid capsule in the
+     *         current phase of the project and its hashtags, separated by a newline
+     *         character.
+     */
+
+    public String getCapsulesInfo() {
+        return getCapsules()[getFirtsValidCapsule() - 1]
+                + "\n" +
+                getCapsules()[getFirtsValidCapsule() - 1].getHastags();
+    }
 
     public boolean isThereRoomForAnotherCapsule() {
         boolean isThereRoomForAnotherCapsule = false;

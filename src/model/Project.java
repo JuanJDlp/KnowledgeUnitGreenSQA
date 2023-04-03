@@ -1,8 +1,7 @@
 package model;
 
 import java.util.Calendar;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -121,7 +120,7 @@ public class Project {
     public String[] employeesInAProject() {
         String[] employeesString = new String[employees.length];
         for (int i = 0; i < employees.length; i++) {
-            employeesString[i] = employees.toString();
+            employeesString[i] = employees[i].toString();
         }
         return employeesString;
     }
@@ -129,7 +128,7 @@ public class Project {
     public boolean addCapsule(String capsuleType, String description, int employeeNumber,
             String learnings) {
         boolean added = false;
-        if (hasHashWords(learnings) && hasHashWords(description)) {
+        if (getCurrentPhase(0).isThereRoomForAnotherCapsule()) {
             String ID = "CC" +
                     this.projectName.replace(" ", "_") +
                     getCurrentPhase(0).getPhaseType() +
@@ -142,13 +141,6 @@ public class Project {
             added = true; // Flag
         }
         return added;
-    }
-
-    public boolean hasHashWords(String text) {
-        Pattern p = Pattern.compile("#([^#]+)#"); // Modify the regex to match the pattern between '#' characters
-        Matcher m = p.matcher(text);
-
-        return m.find();
     }
 
     public Phase getCurrentPhase(int PositoinsToMoveToGetTheNextPhase) {

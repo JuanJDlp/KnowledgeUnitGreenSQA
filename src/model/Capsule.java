@@ -132,6 +132,6 @@ public class Capsule {
             result += "\nApproval Date: " + sdf.format(this.approvalDate.getTime()) + "\n";
         }
 
-        return result;
+        return result + "\n";
     }
 }
