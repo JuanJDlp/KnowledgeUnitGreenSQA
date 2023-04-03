@@ -171,8 +171,9 @@ public class Phase {
     public String publishCapsule(String ID) {
         String URL = "";
         Capsule currentIDCapsule = findCapsule(ID);
-        if (currentIDCapsule != null) {
+        if (currentIDCapsule != null && !currentIDCapsule.getPublished()) {
             if (currentIDCapsule.getApproved()) {
+                currentIDCapsule.setPublished(true);
                 URL = currentIDCapsule.createCapsuleURL();
                 currentIDCapsule.createCapsuleHTML();
             }

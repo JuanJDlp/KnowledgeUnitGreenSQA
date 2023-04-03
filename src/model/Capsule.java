@@ -18,6 +18,7 @@ public class Capsule {
     private String learnings;
     private boolean approved;
     private Calendar approvalDate;
+    private boolean published;
     private ArrayList<String> hastags;
 
     public Capsule(String id, String description, String capsuleType, String learnings, Employee collaborator) {
@@ -27,6 +28,7 @@ public class Capsule {
         this.capsuleType = capsuleType;
         this.learnings = learnings;
         this.collaborator = collaborator;
+        this.published = false;
         this.hastags = new ArrayList<String>();
         addHasTags(description);
         addHasTags(learnings);
@@ -62,6 +64,14 @@ public class Capsule {
 
     public void setApprovalDate(Calendar approvalDate) {
         this.approvalDate = approvalDate;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
+
+    public boolean getPublished() {
+        return this.published;
     }
 
     public ArrayList<String> getHastags() {

@@ -445,9 +445,10 @@ class Main {
         System.out.println("\nInsert the ID of the capsule you want to PUBLISH: ");
         input.nextLine();
         String ID = input.nextLine();
-        if (!driver.publishCapsule(ID, ProjectNumber).equalsIgnoreCase("")) {
+        String URL = driver.publishCapsule(ID, ProjectNumber);
+        if (!URL.equalsIgnoreCase("")) {
             System.out.println("\nCapsule was approved succesfully, it's HTML FILE its in the capsulesHTML folder \n"
-                    + "URL: " + driver.publishCapsule(ID, ProjectNumber));
+                    + "URL: " + URL);
         } else {
             System.out.println("FALTAL: there was an error publishing the capsule");
         }
