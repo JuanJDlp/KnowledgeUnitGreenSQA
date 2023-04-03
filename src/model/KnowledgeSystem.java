@@ -21,6 +21,75 @@ public class KnowledgeSystem {
         return SIZEPROJECTS;
     }
 
+    public boolean isACapsuleApproved(int projectNumber, int i, int j) {
+        return getprojects()[projectNumber].getPhase()[i].getCapsules()[j].getApproved();
+    }
+
+    /**
+     * Checks if there is room for more projects
+     * 
+     * @return true if there is a position where a proejct can be added, otherwise
+     *         false.
+     */
+    public boolean isProjectsFull() {
+        boolean answer = false;
+        if (getFirtsValidPosition() == projects.length) {
+            answer = true;
+        }
+        return answer;
+    }
+
+    /**
+     * Check if there is a projects created.
+     * 
+     * @return true if there has been a project created otherwise false.
+     */
+    public boolean hasThereBeenProjectsCreated() {
+        boolean answer = false;
+        if (projects[0] != null) {
+            answer = true;
+        }
+        return answer;
+    }
+
+    /**
+     * Saves all the names of the phases of a project
+     * 
+     * @param projectNumber index of the project whom names of the phases wants to
+     *                      get.
+     * @return Name of the phases of an specific project.
+     */
+    public String[] phaseNamesInAProject(int projectNumber) {
+        return projects[projectNumber].phaseNamesInAProject();
+    }
+
+    /**
+     * It checks if all the project phases are false and if they are it says that
+     * the project has ended.
+     * 
+     * @param projectNumber the index of the project to check
+     * @return true if the project has ended otherwise false
+     */
+    public boolean hasAProjectEndend(int projectNumber) {
+        boolean hasItEnded = false;
+        if (projects[projectNumber].getCurrentPhase(0) == null) {
+            hasItEnded = true;
+        }
+        return hasItEnded;
+    }
+
+    /**
+     * This method gets the information of the las phase of the project and it is
+     * used
+     * when a project has culminated.
+     * 
+     * @param projectNumber index of the project
+     * @return a String containing the information of the last phase of the project
+     */
+    public String endProjectInformation(int projectNumber) {
+        return projects[projectNumber].endProjectInformation();
+    }
+
     /**
      * 
      * It gets the infotmation fo the name,phone and the index of the project and
@@ -198,8 +267,13 @@ public class KnowledgeSystem {
      * @return The URL of the published Capsule
      */
     public String publishCapsule(String ID, int projectNumber) {
+        String msg = "FALTAL: there was an error publishing the capsule. Check the ID or if the capsule was alredy published";
         String URL = projects[projectNumber].publishCapsule(ID);
-        return URL;
+        if (!URL.equalsIgnoreCase("")) {
+            msg = "\nCapsule was approved succesfully, it's HTML FILE its in the capsulesHTML folder \n"
+                    + "URL: " + URL;
+        }
+        return msg;
     }
 
     /**

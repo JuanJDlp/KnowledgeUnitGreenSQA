@@ -77,6 +77,33 @@ public class Project {
     }
 
     // Methods--------------------
+    /**
+     * This method gets the information of the last phase.
+     * 
+     * @return the information of the last phase
+     */
+    // I created this method so when a user ends all the phases and he tries to end
+    // the project again
+    // he can see the information about the last phases ended.
+    public String endProjectInformation() {
+        return phase[phase.length - 1].toString();
+    }
+
+    /**
+     * Create an array containing the names of all the phases in a project
+     * 
+     * @return Names of all the phases in a project
+     */
+    public String[] phaseNamesInAProject() {
+        String[] phaseNames = new String[phase.length];
+
+        for (int i = 0; i < phase.length; i++) {
+            phaseNames[i] = "Duration in months of '"
+                    + phase[i].getPhaseType()
+                    + "' : ";
+        }
+        return phaseNames;
+    }
 
     /**
      * 
@@ -108,6 +135,11 @@ public class Project {
         if (phaseIndex != 5) {
             getPhase()[phaseIndex + 1]
                     .setStartPlannedDate(nextStartDate);
+        } else {
+            // I had to make this way since it is an special case when the last phase is
+            // initialized.
+            phase[5].setendingPlannedDate(actualDate);
+            setEndingDate(actualDate);
         }
 
     }

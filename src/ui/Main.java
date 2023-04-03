@@ -39,7 +39,7 @@ class Main {
         switch (option) {
 
             case 1:
-                if (driver.getFirtsValidPosition() == driver.getprojects().length) {
+                if (driver.isProjectsFull()) {
                     System.out.println("You can't craete more projects, the projects are full.");
                 } else {
                     createProject();
@@ -47,7 +47,7 @@ class Main {
                 break;
 
             case 2:
-                if (driver.getprojects()[0] != null) {
+                if (driver.hasThereBeenProjectsCreated()) {
                     endPhase();
                 } else {
                     System.out.println("\nThere is no current projects.\n");
@@ -55,7 +55,7 @@ class Main {
                 break;
 
             case 3:
-                if (driver.getprojects()[0] != null) {
+                if (driver.hasThereBeenProjectsCreated()) {
                     addCapsule();
                 } else {
                     System.out.println("\nThere is no current projects.\n");
@@ -63,7 +63,7 @@ class Main {
                 break;
 
             case 4:
-                if (driver.getprojects()[0] != null) {
+                if (driver.hasThereBeenProjectsCreated()) {
                     approveACapsule();
                 } else {
                     System.out.println("\nThere is no current projects.\n");
@@ -71,7 +71,7 @@ class Main {
                 break;
 
             case 5:
-                if (driver.getprojects()[0] != null) {
+                if (driver.hasThereBeenProjectsCreated()) {
                     publishCapsule();
                 } else {
                     System.out.println("\nThere is no current projects.\n");
@@ -196,26 +196,23 @@ class Main {
             System.out.println("Please insert a positive budget");
             budget = validatedoubleInput();
         } while (budget < 0);
-
+        // Create the project
         driver.addProject(projectName, clientName, budget);
-
+        // ALL THE PHASES
         System.out.println("\nInsert how long in MONTHS each phase will take. \n");
 
         Calendar actualDate = Calendar.getInstance();
         int months = -1;
         for (int i = 0; i < 6; i++) {
             do {
-                System.out.print("Duration in months of '"
-                        + driver.getprojects()[projectNumber].getPhase()[i].getPhaseType()
-                        + "' : ");
+                System.out.print(driver.phaseNamesInAProject(projectNumber)[i]);
                 months = validateIntegerInput();
             } while (months < 0);
+
             driver.initProjectPhases(actualDate, i, months, projectNumber);
 
         }
 
-        driver.getprojects()[projectNumber].getPhase()[5].setendingPlannedDate(actualDate);
-        driver.getprojects()[projectNumber].setEndingDate(actualDate);
         int amountOfManagers = -1;
         do {
             System.out.print("\nHow many managers are you going to introduce?: ");
@@ -267,33 +264,31 @@ class Main {
             showProjectStatus();
             System.out.println("\n-1 : to exit the menu");
             // Picking a project
-            projectNumber = validateIntegerInput();
-        } while ((projectNumber <= 0
+            projectNumber = validateIntegerInput() - 1;
+        } while ((projectNumber < 0
                 || projectNumber > driver.getFirtsValidPosition()) && projectNumber != -1);
 
         if (projectNumber >= 0) {
-            if (driver.getprojects()[projectNumber - 1].getCurrentPhase(0) == null) {
+            if (driver.hasAProjectEndend(projectNumber)) {
                 System.out.println(
                         "\nYou can't end the phase of this project. This project has ended");
-                driver.endPhase(projectNumber - 1);
-                System.out.println(driver.getprojects()[projectNumber - 1]
-                        .getPhase()[driver.getprojects()[projectNumber - 1]
-                                .getPhase().length - 1]
-                        .toString());
+
+                System.out.println("\n" + driver.endProjectInformation(projectNumber));
             } else {
 
                 // Displaying the stage information
                 System.out.println(
-                        "-------------" + "\nPROJECT -> " + driver.getprojects()[projectNumber - 1].getProjectName());
+                        "-------------" + "\nPROJECT -> " + driver.getprojects()[projectNumber].getProjectName());
                 System.out.println("\nCURRENT STAGE -> " +
-                        driver.getprojects()[projectNumber - 1].getCurrentPhase(0));
+                        driver.getprojects()[projectNumber].getCurrentPhase(0));
+
                 // Confirmation
                 System.out.println("\nAre you sure you want to end this phase? Y/n ");
                 input.nextLine();// Grab the enter
                 String confirmation = input.nextLine();
 
                 if (confirmation.equalsIgnoreCase("y") || confirmation.equalsIgnoreCase("")) {
-                    driver.endPhase(projectNumber - 1);
+                    driver.endPhase(projectNumber);
                     System.out.println("\nPhase endending complete");
                 } else {
                     System.out.println("\nCancelling task..\n");
@@ -331,7 +326,7 @@ class Main {
         showProjectStatus();
         int projectNumber = validateIntegerInput() - 1;
 
-        if (driver.getprojects()[projectNumber].getCurrentPhase(0) != null) {
+        if (!driver.hasAProjectEndend(projectNumber)) {
 
             System.out.println("\nChoose an employee profile.\n");
             for (int i = 0; i < driver.employeesInAProject(projectNumber).length; i++) {
@@ -437,7 +432,7 @@ class Main {
             System.out.println("\n" + driver.getprojects()[ProjectNumber].getPhase()[i].getPhaseType() + "\n");
 
             for (int j = 0; j < driver.getprojects()[ProjectNumber].getPhase()[i].getFirtsValidCapsule(); j++) {
-                if (driver.getprojects()[ProjectNumber].getPhase()[i].getCapsules()[j].getApproved()) {
+                if (driver.isACapsuleApproved(ProjectNumber, i, j)) {
                     System.out.println(driver.getprojects()[ProjectNumber].getPhase()[i].getCapsules()[j]);
                 }
             }
@@ -445,13 +440,7 @@ class Main {
         System.out.println("\nInsert the ID of the capsule you want to PUBLISH: ");
         input.nextLine();
         String ID = input.nextLine();
-        String URL = driver.publishCapsule(ID, ProjectNumber);
-        if (!URL.equalsIgnoreCase("")) {
-            System.out.println("\nCapsule was approved succesfully, it's HTML FILE its in the capsulesHTML folder \n"
-                    + "URL: " + URL);
-        } else {
-            System.out.println("FALTAL: there was an error publishing the capsule");
-        }
+        System.out.println(driver.publishCapsule(ID, ProjectNumber));
 
     }
 
