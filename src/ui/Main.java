@@ -108,7 +108,7 @@ class Main {
                 break;
             case 10:
                 if (driver.hasThereBeenProjectsCreated()) {
-                    InformLeaningsOfCapsulesByHastag();
+                    InformLearningsOfCapsulesByHastag();
                 } else {
                     System.out.println("\nThere is no current projects.\n");
                 }
@@ -186,7 +186,7 @@ class Main {
      * 
      * @return a double input from the user
      */
-    public double validatedoubleInput() {
+    public double validateDoubleInput() {
         double option = 0;
         if (input.hasNextDouble()) {
             option = input.nextDouble();
@@ -230,7 +230,7 @@ class Main {
         double budget = -1;
         do {
             System.out.println("Please insert a positive budget");
-            budget = validatedoubleInput();
+            budget = validateDoubleInput();
         } while (budget < 0);
         // Create the project
         driver.addProject(projectName, clientName, budget);
@@ -314,9 +314,9 @@ class Main {
 
                 // Displaying the stage information
                 System.out.println(
-                        "-------------" + "\nPROJECT -> " + driver.getprojects()[projectNumber].getProjectName());
+                        "-------------" + "\nPROJECT -> " + driver.getProjects()[projectNumber].getProjectName());
                 System.out.println("\nCURRENT STAGE -> " +
-                        driver.getprojects()[projectNumber].getCurrentPhase(0));
+                        driver.getProjects()[projectNumber].getCurrentPhase(0));
 
                 // Confirmation
                 System.out.println("\nAre you sure you want to end this phase? Y/n ");
@@ -433,12 +433,12 @@ class Main {
             projectNumber = validateIntegerInput() - 1;
         } while ((projectNumber < 0
                 || projectNumber > driver.getFirtsValidPosition() - 1));
-        for (int i = 0; i < driver.getprojects()[projectNumber].getPhase().length; i++) {
+        for (int i = 0; i < driver.getProjects()[projectNumber].getPhase().length; i++) {
 
-            System.out.println("\n" + driver.getprojects()[projectNumber].getPhase()[i].getPhaseType() + "\n");
+            System.out.println("\n" + driver.getProjects()[projectNumber].getPhase()[i].getPhaseType() + "\n");
 
-            for (int j = 0; j < driver.getprojects()[projectNumber].getPhase()[i].getFirtsValidCapsule(); j++) {
-                System.out.println(driver.getprojects()[projectNumber].getPhase()[i].getCapsules()[j]);
+            for (int j = 0; j < driver.getProjects()[projectNumber].getPhase()[i].getFirtsValidCapsule(); j++) {
+                System.out.println(driver.getProjects()[projectNumber].getPhase()[i].getCapsules()[j]);
             }
         }
         System.out.println("\nInsert the ID of the capsule you want to APPROVE:  ");
@@ -453,7 +453,7 @@ class Main {
     public void showProjects() {
 
         for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
-            System.out.println((i + 1) + ": " + driver.getprojects()[i]);
+            System.out.println((i + 1) + ": " + driver.getProjects()[i]);
         }
     }
 
@@ -481,13 +481,13 @@ class Main {
         } while ((projectNumber < 0
                 || projectNumber > driver.getFirtsValidPosition() - 1));
 
-        for (int i = 0; i < driver.getprojects()[projectNumber].getPhase().length; i++) {
+        for (int i = 0; i < driver.getProjects()[projectNumber].getPhase().length; i++) {
 
-            System.out.println("\n" + driver.getprojects()[projectNumber].getPhase()[i].getPhaseType() + "\n");
+            System.out.println("\n" + driver.getProjects()[projectNumber].getPhase()[i].getPhaseType() + "\n");
 
-            for (int j = 0; j < driver.getprojects()[projectNumber].getPhase()[i].getFirtsValidCapsule(); j++) {
+            for (int j = 0; j < driver.getProjects()[projectNumber].getPhase()[i].getFirtsValidCapsule(); j++) {
                 if (driver.isACapsuleApproved(projectNumber, i, j)) {
-                    System.out.println(driver.getprojects()[projectNumber].getPhase()[i].getCapsules()[j]);
+                    System.out.println(driver.getProjects()[projectNumber].getPhase()[i].getCapsules()[j]);
                 }
             }
         }
@@ -507,11 +507,11 @@ class Main {
      */
     public void showProjectStatus() {
         for (int i = 0; i < driver.getFirtsValidPosition(); i++) {
-            if (driver.getprojects()[i].getCurrentPhase(0) != null) {
-                System.out.println((i + 1) + ": " + driver.getprojects()[i].getProjectName()
-                        + " | " + driver.getprojects()[i].getCurrentPhase(0).getPhaseType());
+            if (driver.getProjects()[i].getCurrentPhase(0) != null) {
+                System.out.println((i + 1) + ": " + driver.getProjects()[i].getProjectName()
+                        + " | " + driver.getProjects()[i].getCurrentPhase(0).getPhaseType());
             } else {
-                System.out.println((i + 1) + ": " + driver.getprojects()[i].getProjectName()
+                System.out.println((i + 1) + ": " + driver.getProjects()[i].getProjectName()
                         + " | " + "THE PROJECT HAS ENDEND");
             }
         }
@@ -562,6 +562,12 @@ class Main {
                         + " capsules registered with that type.");
     }
 
+    /**
+     * Displays the learnings in a phase for a selected project.
+     * Allows the user to select a project and a phase, and then displays the
+     * learnings in that phase.
+     * Uses the driver object to retrieve project and phase information.
+     */
     public void learningsInAPhase() {
         int projectNumber = -1;
         int option = -1;
@@ -585,11 +591,21 @@ class Main {
 
     }
 
+    /**
+     * Displays the project with the most amount of capsules registered.
+     * Uses the driver object to retrieve project information.
+     */
     public void projectWithTheMostAmountOfCapsules() {
         System.out.println("The project with the most amount of capsules registered is: "
                 + driver.projectWithTheMostAmountOfCapsules());
     }
 
+    /**
+     * Displays the capsules written by a specific employee.
+     * Prompts the user to enter the name of the employee, and then displays the
+     * capsules written by that employee.
+     * Uses the driver object to retrieve employee information.
+     */
     public void capsulesOfAnEmployee() {
         System.out.println("Please insert the name of the employee you want to check if he has written capsules.");
         input.nextLine();
@@ -597,11 +613,17 @@ class Main {
         System.out.println(driver.capsulesOfAnEmployee(employeeName));
     }
 
-    public void InformLeaningsOfCapsulesByHastag() {
+    /**
+     * Displays the learnings of capsules associated with a specific hashtag.
+     * Prompts the user to enter a hashtag, and then displays the learnings of
+     * capsules associated with that hashtag.
+     * Uses the driver object to retrieve capsule information.
+     */
+    public void InformLearningsOfCapsulesByHastag() {
         System.out.println("Search: ");
         input.nextLine();
         String query = input.nextLine();
-        System.out.println(driver.InformLeaningsOfCapsulesByHastag(query));
+        System.out.println(driver.InformLearningsOfCapsulesByHastag(query));
     }
 
 }

@@ -28,6 +28,14 @@ public class Employee {
         return capsules;
     }
 
+    /**
+     * 
+     * Returns a formatted string representation of the capsules owned by an
+     * employee.
+     * 
+     * @return a string containing the information of all the capsules owned by the
+     *         employee
+     */
     public String capsulesOfAnEmployee() {
         String capsulesEmployee = "";
         for (int i = 0; i < capsules.size(); i++) {

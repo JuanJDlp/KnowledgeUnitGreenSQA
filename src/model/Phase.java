@@ -104,9 +104,10 @@ public class Phase {
     }
 
     /**
-     * Returns the index of the first valid capsule. If there is not space for more
+     * Returns the index of the first valid position to add a capsule capsule. If
+     * there is not space for more
      * capsules
-     * it will return the lenght of the capsules array times -1.
+     * it will return the lenght of the capsules's array times -1.
      * 
      * @return The index of the first valid capsule.
      */
@@ -182,6 +183,12 @@ public class Phase {
         return URL;
     }
 
+    /**
+     * Returns the number of capsules of a given type in the capsules array.
+     * 
+     * @param capsuleType The type of capsules to be counted.
+     * @return The number of capsules of the given type.
+     */
     public int amountCapsulesByType(String capsuleType) {
         int counter = 0;
         for (int i = 0; i < getFirtsValidCapsule(); i++) {
@@ -192,6 +199,11 @@ public class Phase {
         return counter;
     }
 
+    /**
+     * Returns a formatted list of learnings from capsules in the capsules array.
+     * 
+     * @return A string containing the list of learnings from capsules by.
+     */
     public String learningsInAPhase() {
         String listOfLearnings = "";
         for (int i = 0; i < getFirtsValidCapsule(); i++) {
@@ -205,7 +217,15 @@ public class Phase {
         return listOfLearnings;
     }
 
-    public String InformLeaningsOfCapsulesByHastag(String query) {
+    /**
+     * Returns a formatted list of capsules' information that match a given hashtag
+     * query,
+     * and are approved and published.
+     * 
+     * @param query The hashtag query to be matched against capsule's hashtags.
+     * @return A string containing the list of capsules' information.
+     */
+    public String InformLearningsOfCapsulesByHastag(String query) {
         String listOfCapsules = "";
         for (int i = 0; i < getFirtsValidCapsule(); i++) {
             if (capsules[i].matchQueryWithHastag(query) && capsules[i].getApproved() && capsules[i].getPublished()) {

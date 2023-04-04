@@ -166,6 +166,15 @@ public class Capsule {
         }
     }
 
+    /**
+     * 
+     * Determines if the given query matches any of the hashtags in the list of
+     * hashtags.
+     * 
+     * @param query the query to match against hashtags
+     * 
+     * @return true if the query matches any of the hashtags, false otherwise
+     */
     public boolean matchQueryWithHastag(String query) {
         boolean found = false;
 

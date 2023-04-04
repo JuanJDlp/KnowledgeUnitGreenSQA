@@ -280,6 +280,12 @@ public class Project {
         return URL;
     }
 
+    /**
+     * Returns the total amount of capsules of a specific type across all phases.
+     *
+     * @param capsuleType The type of capsules to be counted.
+     * @return The total amount of capsules of the given type across all phases.
+     */
     public int amountCapsulesByType(String capsuleType) {
         int counter = 0;
         for (int i = 0; i < phase.length; i++) {
@@ -288,10 +294,22 @@ public class Project {
         return counter;
     }
 
+    /**
+     * Returns the list of learnings in a specific phase.
+     *
+     * @param phaseIndex The index of the phase to retrieve the learnings from.
+     * @return The list of learnings in the specified phase.
+     */
     public String learningsInAPhase(int phaseIndex) {
         return phase[phaseIndex].learningsInAPhase();
     }
 
+    /**
+     * Returns the list of capsules written by an employee.
+     *
+     * @param employeeName The name of the employee to retrieve the capsules for.
+     * @return The list of capsules written by the specified employee.
+     */
     public String capsulesOfAnEmployee(String employeeName) {
         String listOfCapsules = "";
         for (int i = 0; i < employees.length; i++) {
@@ -302,10 +320,16 @@ public class Project {
         return listOfCapsules;
     }
 
-    public String InformLeaningsOfCapsulesByHastag(String query) {
+    /**
+     * Searches for learnings in capsules by hashtag across all phases.
+     *
+     * @param query The hashtag to search for.
+     * @return The search results containing learnings with the specified hashtag.
+     */
+    public String InformLearningsOfCapsulesByHastag(String query) {
         String resultsOfSearch = "";
         for (int i = 0; i < employees.length; i++) {
-            resultsOfSearch += "\n" + phase[i].InformLeaningsOfCapsulesByHastag(query) + "\n";
+            resultsOfSearch += "\n" + phase[i].InformLearningsOfCapsulesByHastag(query) + "\n";
         }
         return resultsOfSearch;
     }

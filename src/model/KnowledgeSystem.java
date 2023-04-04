@@ -13,7 +13,7 @@ public class KnowledgeSystem {
         this.projects = new Project[SIZEPROJECTS];
     }
 
-    public Project[] getprojects() {
+    public Project[] getProjects() {
         return projects;
     }
 
@@ -22,7 +22,7 @@ public class KnowledgeSystem {
     }
 
     public boolean isACapsuleApproved(int projectNumber, int i, int j) {
-        return getprojects()[projectNumber].getPhase()[i].getCapsules()[j].getApproved();
+        return getProjects()[projectNumber].getPhase()[i].getCapsules()[j].getApproved();
     }
 
     /**
@@ -166,7 +166,7 @@ public class KnowledgeSystem {
      */
     public void initProjectPhases(Calendar actualDate, int phaseIndex, int amountMonthsBetweenProjects,
             int projectNumber) {
-        Project currenProject = getprojects()[projectNumber];
+        Project currenProject = getProjects()[projectNumber];
         currenProject.initProjectPhases(actualDate, phaseIndex, amountMonthsBetweenProjects);
     }
 
@@ -291,14 +291,29 @@ public class KnowledgeSystem {
                 pos = i;
             }
         }
-        return pos = (pos == -1) ? getprojects().length
+        return pos = (pos == -1) ? getProjects().length
                 : pos;
     }
 
+    /**
+     * Returns the amount of capsules of a specific type in a project.
+     *
+     * @param projectIndex The index of the project.
+     * @param capsuleType  The type of capsule to count.
+     * @return The amount of capsules of the specified type in the project.
+     */
     public int amountCapsulesByType(int projectIndex, String capsuleType) {
         return projects[projectIndex].amountCapsulesByType(capsuleType);
     }
 
+    /**
+     * Retrieves the list of learnings in a specific phase of a project.
+     *
+     * @param projectIndex The index of the project.
+     * @param phaseIndex   The index of the phase.
+     * @return The list of learnings in the specified phase of the project, or a
+     *         message indicating that there are no learnings.
+     */
     public String learningsInAPhase(int projectIndex, int phaseIndex) {
         String listOfLearnings = projects[projectIndex].learningsInAPhase(phaseIndex);
         if (listOfLearnings.equalsIgnoreCase("")) {
@@ -307,6 +322,12 @@ public class KnowledgeSystem {
         return listOfLearnings;
     }
 
+    /**
+     * Retrieves the name of the project with the most amount of capsules
+     * registered.
+     *
+     * @return The name of the project with the most amount of capsules registered.
+     */
     public String projectWithTheMostAmountOfCapsules() {
         int temp = projects[0].getAmountOfCapsulesRegistered();
         int position = 0;
@@ -319,6 +340,13 @@ public class KnowledgeSystem {
         return projects[position].getProjectName();
     }
 
+    /**
+     * Retrieves the list of capsules written by an employee in all projects.
+     *
+     * @param employeeName The name of the employee.
+     * @return The list of capsules written by the specified employee in all
+     *         projects.
+     */
     public String capsulesOfAnEmployee(String employeeName) {
         String listOfCapsules = "";
         for (int i = 0; i < getFirtsValidPosition(); i++) {
@@ -327,10 +355,18 @@ public class KnowledgeSystem {
         return listOfCapsules;
     }
 
-    public String InformLeaningsOfCapsulesByHastag(String query) {
+    /**
+     * Retrieves the list of learnings in all projects that match a given hashtag
+     * query.
+     *
+     * @param query The hashtag query to search for.
+     * @return The list of learnings in all projects that match the given hashtag
+     *         query.
+     */
+    public String InformLearningsOfCapsulesByHastag(String query) {
         String searchResult = "";
         for (int i = 0; i < getFirtsValidPosition(); i++) {
-            searchResult += "\n" + projects[i].InformLeaningsOfCapsulesByHastag(query);
+            searchResult += "\n" + projects[i].InformLearningsOfCapsulesByHastag(query);
         }
         return searchResult;
     }
