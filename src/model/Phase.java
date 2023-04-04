@@ -205,6 +205,17 @@ public class Phase {
         return listOfLearnings;
     }
 
+    public String InformLeaningsOfCapsulesByHastag(String query) {
+        String listOfCapsules = "";
+        for (int i = 0; i < getFirtsValidCapsule(); i++) {
+            if (capsules[i].matchQueryWithHastag(query) && capsules[i].getApproved() && capsules[i].getPublished()) {
+                listOfCapsules += "\n" + capsules[i].toString() + "\n";
+            }
+        }
+        return listOfCapsules;
+
+    }
+
     @Override
     public String toString() {
         String result = "Phase: " + this.phaseType +

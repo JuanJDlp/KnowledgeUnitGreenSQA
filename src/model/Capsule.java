@@ -166,6 +166,17 @@ public class Capsule {
         }
     }
 
+    public boolean matchQueryWithHastag(String query) {
+        boolean found = false;
+
+        for (int i = 0; i < hastags.size(); i++) {
+            if (hastags.get(i).equalsIgnoreCase(query)) {
+                found = true;
+            }
+        }
+        return found;
+    }
+
     @Override
     public String toString() {
         String result = "ID: " + this.ID +

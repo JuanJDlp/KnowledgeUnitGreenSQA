@@ -293,13 +293,21 @@ public class Project {
     }
 
     public String capsulesOfAnEmployee(String employeeName) {
-        String ListOfCapsules = "";
+        String listOfCapsules = "";
         for (int i = 0; i < employees.length; i++) {
             if (employees[i].getName().equalsIgnoreCase(employeeName)) {
-                ListOfCapsules += "\n" + employees[i].capsulesOfAnEmployee() + "\n";
+                listOfCapsules += "\n" + employees[i].capsulesOfAnEmployee() + "\n";
             }
         }
-        return ListOfCapsules;
+        return listOfCapsules;
+    }
+
+    public String InformLeaningsOfCapsulesByHastag(String query) {
+        String resultsOfSearch = "";
+        for (int i = 0; i < employees.length; i++) {
+            resultsOfSearch += "\n" + phase[i].InformLeaningsOfCapsulesByHastag(query) + "\n";
+        }
+        return resultsOfSearch;
     }
 
     @Override

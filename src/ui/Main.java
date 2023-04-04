@@ -106,6 +106,13 @@ class Main {
                     System.out.println("\nThere is no current projects.\n");
                 }
                 break;
+            case 10:
+                if (driver.hasThereBeenProjectsCreated()) {
+                    InformLeaningsOfCapsulesByHastag();
+                } else {
+                    System.out.println("\nThere is no current projects.\n");
+                }
+                break;
             default:
                 System.out.println("Option not recognized.");
         }
@@ -141,7 +148,7 @@ class Main {
                     "\n9. Capsules created by a colaborator " +
                     "\n10. Search lessons  "
                     +
-                    "\n\n11. SALIR DEL PROGRAMA");
+                    "\n\n11. EXIT");
             System.out.print("\n>> ");
             option = validateIntegerInput();
             if (option < 1 || option > 11) {
@@ -588,6 +595,13 @@ class Main {
         input.nextLine();
         String employeeName = input.nextLine();
         System.out.println(driver.capsulesOfAnEmployee(employeeName));
+    }
+
+    public void InformLeaningsOfCapsulesByHastag() {
+        System.out.println("Search: ");
+        input.nextLine();
+        String query = input.nextLine();
+        System.out.println(driver.InformLeaningsOfCapsulesByHastag(query));
     }
 
 }

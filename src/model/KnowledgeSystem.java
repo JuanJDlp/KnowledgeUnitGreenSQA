@@ -326,4 +326,12 @@ public class KnowledgeSystem {
         }
         return listOfCapsules;
     }
+
+    public String InformLeaningsOfCapsulesByHastag(String query) {
+        String searchResult = "";
+        for (int i = 0; i < getFirtsValidPosition(); i++) {
+            searchResult += "\n" + projects[i].InformLeaningsOfCapsulesByHastag(query);
+        }
+        return searchResult;
+    }
 }
