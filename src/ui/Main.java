@@ -92,6 +92,13 @@ class Main {
                     System.out.println("\nThere is no current projects.\n");
                 }
                 break;
+            case 8:
+                if (driver.hasThereBeenProjectsCreated()) {
+                    projectWithTheMostAmountOfCapsules();
+                } else {
+                    System.out.println("\nThere is no current projects.\n");
+                }
+                break;
             default:
                 System.out.println("Option not recognized.");
         }
@@ -562,6 +569,11 @@ class Main {
 
         System.out.println(driver.learningsInAPhase(projectNumber, option));
 
+    }
+
+    public void projectWithTheMostAmountOfCapsules() {
+        System.out.println("The project with the most amount of capsules registered is: "
+                + driver.projectWithTheMostAmountOfCapsules());
     }
 
 }

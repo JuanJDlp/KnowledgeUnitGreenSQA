@@ -306,4 +306,16 @@ public class KnowledgeSystem {
         }
         return listOfLearnings;
     }
+
+    public String projectWithTheMostAmountOfCapsules() {
+        int temp = projects[0].getAmountOfCapsulesRegistered();
+        int position = 0;
+        for (int i = 0; i < getFirtsValidPosition(); i++) {
+            if (projects[i].getAmountOfCapsulesRegistered() > temp) {
+                temp = projects[i].getAmountOfCapsulesRegistered();
+                position = i;
+            }
+        }
+        return projects[position].getProjectName();
+    }
 }

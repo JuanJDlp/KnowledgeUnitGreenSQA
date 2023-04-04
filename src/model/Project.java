@@ -15,6 +15,7 @@ public class Project {
     private ArrayList<Employee> managers;
     private Phase[] phase;
     private Employee[] employees;
+    private int amountOfCapsulesRegistered;
 
     public Project(String projecName, String clientName, Calendar startDate, double projectBudget) {
         this.sdf = new SimpleDateFormat("dd/MMM/yyyy");
@@ -74,6 +75,10 @@ public class Project {
 
     public Employee[] getEmployees() {
         return employees;
+    }
+
+    public int getAmountOfCapsulesRegistered() {
+        return amountOfCapsulesRegistered;
     }
 
     // Methods--------------------
@@ -205,6 +210,7 @@ public class Project {
                     String.valueOf(getCurrentPhase(0).getFirtsValidCapsule());
 
             Capsule capsule = new Capsule(ID, description, capsuleType, learnings, employees[employeeNumber]);
+            amountOfCapsulesRegistered++;
 
             employees[employeeNumber].addCapsule(capsule);
             getCurrentPhase(0).addCapsule(capsule);
