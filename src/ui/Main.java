@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import model.KnowledgeSystem;
 
-class Main {
+public class Main {
     private Scanner input;
     KnowledgeSystem driver;
 
