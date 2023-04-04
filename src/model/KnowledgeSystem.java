@@ -318,4 +318,12 @@ public class KnowledgeSystem {
         }
         return projects[position].getProjectName();
     }
+
+    public String capsulesOfAnEmployee(String employeeName) {
+        String listOfCapsules = "";
+        for (int i = 0; i < getFirtsValidPosition(); i++) {
+            listOfCapsules += "\n" + projects[i].capsulesOfAnEmployee(employeeName);
+        }
+        return listOfCapsules;
+    }
 }

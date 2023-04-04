@@ -292,6 +292,16 @@ public class Project {
         return phase[phaseIndex].learningsInAPhase();
     }
 
+    public String capsulesOfAnEmployee(String employeeName) {
+        String ListOfCapsules = "";
+        for (int i = 0; i < employees.length; i++) {
+            if (employees[i].getName().equalsIgnoreCase(employeeName)) {
+                ListOfCapsules += "\n" + employees[i].capsulesOfAnEmployee() + "\n";
+            }
+        }
+        return ListOfCapsules;
+    }
+
     @Override
     public String toString() {
         return "Project's name: " + this.projectName +

@@ -99,6 +99,13 @@ class Main {
                     System.out.println("\nThere is no current projects.\n");
                 }
                 break;
+            case 9:
+                if (driver.hasThereBeenProjectsCreated()) {
+                    capsulesOfAnEmployee();
+                } else {
+                    System.out.println("\nThere is no current projects.\n");
+                }
+                break;
             default:
                 System.out.println("Option not recognized.");
         }
@@ -574,6 +581,13 @@ class Main {
     public void projectWithTheMostAmountOfCapsules() {
         System.out.println("The project with the most amount of capsules registered is: "
                 + driver.projectWithTheMostAmountOfCapsules());
+    }
+
+    public void capsulesOfAnEmployee() {
+        System.out.println("Please insert the name of the employee you want to check if he has written capsules.");
+        input.nextLine();
+        String employeeName = input.nextLine();
+        System.out.println(driver.capsulesOfAnEmployee(employeeName));
     }
 
 }

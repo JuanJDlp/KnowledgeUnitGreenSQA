@@ -20,8 +20,20 @@ public class Employee {
         this.capsules = new ArrayList<Capsule>();
     }
 
+    public String getName() {
+        return name;
+    }
+
     public ArrayList<Capsule> getCapsules() {
         return capsules;
+    }
+
+    public String capsulesOfAnEmployee() {
+        String capsulesEmployee = "";
+        for (int i = 0; i < capsules.size(); i++) {
+            capsulesEmployee += capsules.get(i).toString() + "\n";
+        }
+        return capsulesEmployee;
     }
 
     /**
