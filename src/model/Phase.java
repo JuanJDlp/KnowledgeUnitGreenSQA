@@ -192,6 +192,19 @@ public class Phase {
         return counter;
     }
 
+    public String learningsInAPhase() {
+        String listOfLearnings = "";
+        for (int i = 0; i < getFirtsValidCapsule(); i++) {
+            listOfLearnings += "\n" + (i + 1) + ": " +
+                    capsules[i].getID() +
+                    "\nDescription: " +
+                    capsules[i].getDescription() +
+                    "\nLearnings: " +
+                    capsules[i].getLearnings() + "\n";
+        }
+        return listOfLearnings;
+    }
+
     @Override
     public String toString() {
         String result = "Phase: " + this.phaseType +

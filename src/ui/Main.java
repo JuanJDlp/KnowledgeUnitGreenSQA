@@ -78,7 +78,19 @@ class Main {
                 }
                 break;
             case 6:
-                capsulesRegisteredByType();
+                if (driver.hasThereBeenProjectsCreated()) {
+                    capsulesRegisteredByType();
+
+                } else {
+                    System.out.println("\nThere is no current projects.\n");
+                }
+                break;
+            case 7:
+                if (driver.hasThereBeenProjectsCreated()) {
+                    learningsInAPhase();
+                } else {
+                    System.out.println("\nThere is no current projects.\n");
+                }
                 break;
             default:
                 System.out.println("Option not recognized.");
@@ -206,9 +218,9 @@ class Main {
 
         Calendar actualDate = Calendar.getInstance();
         int months = -1;
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < driver.phaseNamesInAProject(projectNumber).length; i++) {
             do {
-                System.out.print(driver.phaseNamesInAProject(projectNumber)[i]);
+                System.out.print("Duration in months of '" + driver.phaseNamesInAProject(projectNumber)[i] + "' : ");
                 months = validateIntegerInput();
             } while (months < 0);
 
@@ -527,6 +539,29 @@ class Main {
         System.out.println(
                 "There is " + driver.amountCapsulesByType(projectNumber, capsuleType)
                         + " capsules registered with that type.");
+    }
+
+    public void learningsInAPhase() {
+        int projectNumber = -1;
+        int option = -1;
+        do {
+            System.out.println("\n");
+            // Printing all the projects name's
+            showProjectStatus();
+            // Picking a project
+            projectNumber = validateIntegerInput() - 1;
+        } while ((projectNumber < 0
+                || projectNumber > driver.getFirtsValidPosition() - 1));
+
+        for (int i = 0; i < driver.phaseNamesInAProject(projectNumber).length; i++) {
+            System.out.print((i + 1) + ": " + driver.phaseNamesInAProject(projectNumber)[i] + "\n");
+        }
+        do {
+            option = validateIntegerInput() - 1;
+        } while (option < 0 || option > driver.phaseNamesInAProject(projectNumber).length);
+
+        System.out.println(driver.learningsInAPhase(projectNumber, option));
+
     }
 
 }

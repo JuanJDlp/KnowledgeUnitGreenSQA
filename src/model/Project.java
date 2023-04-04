@@ -98,9 +98,7 @@ public class Project {
         String[] phaseNames = new String[phase.length];
 
         for (int i = 0; i < phase.length; i++) {
-            phaseNames[i] = "Duration in months of '"
-                    + phase[i].getPhaseType()
-                    + "' : ";
+            phaseNames[i] = phase[i].getPhaseType();
         }
         return phaseNames;
     }
@@ -282,6 +280,10 @@ public class Project {
             counter += phase[i].amountCapsulesByType(capsuleType);
         }
         return counter;
+    }
+
+    public String learningsInAPhase(int phaseIndex) {
+        return phase[phaseIndex].learningsInAPhase();
     }
 
     @Override

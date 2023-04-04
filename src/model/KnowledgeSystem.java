@@ -298,4 +298,12 @@ public class KnowledgeSystem {
     public int amountCapsulesByType(int projectIndex, String capsuleType) {
         return projects[projectIndex].amountCapsulesByType(capsuleType);
     }
+
+    public String learningsInAPhase(int projectIndex, int phaseIndex) {
+        String listOfLearnings = projects[projectIndex].learningsInAPhase(phaseIndex);
+        if (listOfLearnings.equalsIgnoreCase("")) {
+            listOfLearnings = "There is no learnings in this phase.";
+        }
+        return listOfLearnings;
+    }
 }

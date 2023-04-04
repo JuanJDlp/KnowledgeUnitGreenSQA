@@ -82,6 +82,14 @@ public class Capsule {
         this.capsuleType = capsuleType;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public String getLearnings() {
+        return learnings;
+    }
+
     public ArrayList<String> getHastags() {
         return hastags;
     }
