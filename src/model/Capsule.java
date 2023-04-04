@@ -9,6 +9,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
+/**
+ * This class represents the capsules in the phases that the user can create.
+ */
 public class Capsule {
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
     private String ID;

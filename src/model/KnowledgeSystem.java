@@ -4,6 +4,12 @@ import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This is the controller class, the class is encharged of conecting the
+ * frontend with the backend
+ * 
+ * @author Juan Jose De La Pava
+ */
 public class KnowledgeSystem {
     private final int SIZEPROJECTS;
     private Project[] projects;
@@ -159,10 +165,10 @@ public class KnowledgeSystem {
      * 
      * Initializes the phases of a Project
      * 
-     * @param actualDate                The actual date
-     * @param phaseIndex                The index of the Phase
-     * @param amountMonthsBetweenPhases The amount of months between phases
-     * @param projectNumber             The number of the Project
+     * @param actualDate                  The actual date
+     * @param phaseIndex                  The index of the Phase
+     * @param amountMonthsBetweenProjects The amount of months between phases
+     * @param projectNumber               The number of the Project
      */
     public void initProjectPhases(Calendar actualDate, int phaseIndex, int amountMonthsBetweenProjects,
             int projectNumber) {

@@ -5,6 +5,9 @@ import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+/**
+ * This class is encharged of all the projects
+ */
 public class Project {
     private SimpleDateFormat sdf;
     private String projectName;
@@ -224,11 +227,11 @@ public class Project {
      * the actual one he wants to get
      * if the this param is 0, the method will return the current phase.
      * 
-     * @param PositionsToMoveToGetTheNextPhase the number of positions to move to
+     * @param positionsToMoveToGetTheNextPhase the number of positions to move to
      *                                         get the next phase. if its needed.
      * @return the current phase of the project.
      */
-    public Phase getCurrentPhase(int PositoinsToMoveToGetTheNextPhase) {
+    public Phase getCurrentPhase(int positionsToMoveToGetTheNextPhase) {
         Phase currentStage = null;
         boolean found = false;
         int position = -1;
@@ -239,7 +242,7 @@ public class Project {
             }
         }
         if (position != -1) {
-            currentStage = phase[position + PositoinsToMoveToGetTheNextPhase];
+            currentStage = phase[position + positionsToMoveToGetTheNextPhase];
         }
 
         return currentStage;

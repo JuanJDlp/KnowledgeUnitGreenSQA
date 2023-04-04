@@ -3,6 +3,11 @@ package model;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 
+/**
+ * The class represents the phases of a project in the System.
+ * 
+ * @author Juan Jose De La Pava
+ */
 public class Phase {
     private SimpleDateFormat sdf;
     private Calendar startPlannedDate;

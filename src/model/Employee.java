@@ -2,6 +2,9 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents the Employees of the company. It also creates Managers.
+ */
 public class Employee {
     private String name;
     private String phone;

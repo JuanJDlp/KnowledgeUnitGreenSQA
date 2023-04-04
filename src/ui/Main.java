@@ -5,6 +5,11 @@ import java.util.Scanner;
 
 import model.KnowledgeSystem;
 
+/**
+ * This class is encharged of displaying all the UI designm
+ * 
+ * @author Juan Jose De La Pava
+ */
 public class Main {
     private Scanner input;
     KnowledgeSystem driver;
@@ -33,7 +38,6 @@ public class Main {
      * 
      * @param option -> It will be a number between 1 and 6 representing what the
      *               user want's to do with the software.
-     * @return The program return nothing since it will only execute an option.
      */
     public void executeOption(int option) {
         switch (option) {
